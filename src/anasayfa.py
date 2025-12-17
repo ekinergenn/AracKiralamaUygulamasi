@@ -6,7 +6,7 @@ from PySide6.QtWidgets import (QApplication, QComboBox, QDialog, QGridLayout,
                                QHBoxLayout, QLabel, QLineEdit, QPushButton,
                                QScrollArea, QVBoxLayout, QWidget, QFrame)
 
-from 
+from src.araba_kart import araba_kart
 
 #Python dosyasının adresi
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -93,7 +93,7 @@ class Ui_Dialog(object):
         QMetaObject.connectSlotsByName(Dialog)
 
     def arac_karti_ekle(self, satir, sutun, marka, model, plaka, fiyat):
-        self.izgara_layout_araclar.addWidget(kart_cerceve, satir, sutun)
+        self.izgara_layout_araclar.addWidget(araba_kart(marka=marka,model=model,plaka=plaka,fiyat=fiyat), satir, sutun)
 
     def retranslateUi(self, Dialog):
         Dialog.setWindowTitle("Araç Kiralama Paneli")

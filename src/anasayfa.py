@@ -4,7 +4,7 @@ from PySide6.QtCore import (QCoreApplication, QSize, QRect, Qt, QMetaObject)
 from PySide6.QtGui import (QColor, QFont, QPixmap)
 from PySide6.QtWidgets import (QApplication, QComboBox, QDialog, QGridLayout,
                                QHBoxLayout, QLabel, QLineEdit, QPushButton,
-                               QScrollArea, QVBoxLayout, QWidget, QFrame)
+                               QScrollArea, QVBoxLayout, QWidget, QFrame,QStackedWidget)
 
 from src.araba_kart import araba_kart
 
@@ -72,8 +72,12 @@ class Ui_Dialog(object):
 
         self.ana_dikey_layout.addWidget(self.ust_bar_cerceve)
 
+        self.stack = QStackedWidget()
+        self.page1 = QWidget()
+        self.page2 = QWidget()
+
         #Ana Kısım
-        self.kaydirma_alani = QScrollArea(Dialog)
+        self.kaydirma_alani = QScrollArea(self.page1)
         self.kaydirma_alani.setWidgetResizable(True)
         self.kaydirma_alani.setStyleSheet("border: None; background-color: transparent;")
 
@@ -88,6 +92,10 @@ class Ui_Dialog(object):
 
         self.kaydirma_alani.setWidget(self.kaydirma_icerik_widget)
         self.ana_dikey_layout.addWidget(self.kaydirma_alani)
+
+        self.stack.addWidget(self.page1)
+        self.stack.addWidget(self.page2)
+        self.stack.setCurrentIndex(0)
 
         self.retranslateUi(Dialog)
         QMetaObject.connectSlotsByName(Dialog)

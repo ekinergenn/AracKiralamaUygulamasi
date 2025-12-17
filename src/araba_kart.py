@@ -10,16 +10,15 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
 class araba_kart(QFrame):
-    def __init__(self, /, parent = ..., f = ..., *, frameShape = ..., frameShadow = ..., lineWidth = ..., midLineWidth = ..., frameWidth = ..., frameRect = ..., marka, model, plaka, fiyat):
-        super().__init__(parent, f, frameShape=frameShape, frameShadow=frameShadow, lineWidth=lineWidth, midLineWidth=midLineWidth, frameWidth=frameWidth, frameRect=frameRect)
-        kart_cerceve = QFrame()
-        kart_cerceve.setFixedSize(380, 200)
-        kart_cerceve.setStyleSheet("background-color: white; border-radius: 15px; border: 1px solid #E2E8F0;")
+    def __init__(self, marka, model, plaka, fiyat, parent=None):
+        super().__init__(parent)
+        self.setFixedSize(380, 200)
+        self.setStyleSheet("background-color: white; border-radius: 15px; border: 1px solid #E2E8F0;")
 
-        kart_yatay_layout = QHBoxLayout(kart_cerceve)
+        kart_yatay_layout = QHBoxLayout(self)
 
         #Araba Resmi
-        etiket_arac_resim = QLabel(kart_cerceve)
+        etiket_arac_resim = QLabel(self)
         etiket_arac_resim.setFixedSize(140, 140)
         etiket_arac_resim.setStyleSheet("background-color: #F7FAFC; border-radius: 10px; border: none;")
 

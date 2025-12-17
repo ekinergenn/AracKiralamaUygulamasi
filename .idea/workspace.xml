@@ -5,12 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="17303a65-b033-43c3-a142-3287c413f33e" name="Changes" comment="düzenlenmiş dosya">
-      <change afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/araba_kart.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/caricon.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/profilepp.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/anasayfa.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/anasayfa.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/giris.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/giris.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,7 +80,15 @@
       <option name="project" value="LOCAL" />
       <updated>1765973338959</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="düzenlenmiş dosya">
+      <option name="closed" value="true" />
+      <created>1765983546672</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1765983546672</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

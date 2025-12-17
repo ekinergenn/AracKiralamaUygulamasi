@@ -8,6 +8,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/anasayfa.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/anasayfa.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/araba_kart.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/araba_kart.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/arababilgi.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/arababilgi.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,6 +25,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "burakiskar"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/ekinergenn/AracKiralamaUygulamasi.git",
+    "accountId": "38ddde11-dd41-4730-89eb-d16feffbac6a"
+  }
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 4
 }</component>

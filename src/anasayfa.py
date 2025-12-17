@@ -4,10 +4,10 @@ from PySide6.QtCore import (QCoreApplication, QSize, QRect, Qt, QMetaObject)
 from PySide6.QtGui import (QColor, QFont, QPixmap)
 from PySide6.QtWidgets import (QApplication, QComboBox, QDialog, QGridLayout,
                                QHBoxLayout, QLabel, QLineEdit, QPushButton,
-                               QScrollArea, QVBoxLayout, QWidget, QFrame,QStackedWidget)
+                               QScrollArea, QVBoxLayout, QWidget, QFrame,QStackedWidget,QSizePolicy)
 
 from src.araba_kart import araba_kart
-
+from src.arababilgi import AracDetayWidget
 #Python dosyasının adresi
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -76,32 +76,62 @@ class Ui_Dialog(object):
         self.page1 = QWidget()
         self.page2 = QWidget()
 
-        #Ana Kısım
-        self.kaydirma_alani = QScrollArea(self.page1)
+        # Scroll Area
+        self.kaydirma_alani = QScrollArea()
         self.kaydirma_alani.setWidgetResizable(True)
-        self.kaydirma_alani.setStyleSheet("border: None; background-color: transparent;")
+        self.kaydirma_alani.setStyleSheet("border: none; background-color: transparent;")
 
         self.kaydirma_icerik_widget = QWidget()
         self.izgara_layout_araclar = QGridLayout(self.kaydirma_icerik_widget)
         self.izgara_layout_araclar.setSpacing(20)
+        # self.izgara_layout_araclar.setAlignment(Qt.AlignTop | Qt.AlignLeft)
 
-        #Örnek Araçlar
+        # self.kaydirma_icerik_widget.setSizePolicy(
+        #     QSizePolicy.Policy.Preferred,
+        #     QSizePolicy.Policy.Minimum
+        # )
+
+        # Kartlar
         self.arac_karti_ekle(0, 0, "Tesla Model 3", "2023", "34 ABC 123", "2500 TL")
         self.arac_karti_ekle(0, 1, "BMW i4", "2024", "34 DEF 456", "3200 TL")
         self.arac_karti_ekle(1, 0, "Audi A4", "2022", "34 GHI 789", "1800 TL")
 
         self.kaydirma_alani.setWidget(self.kaydirma_icerik_widget)
-        self.ana_dikey_layout.addWidget(self.kaydirma_alani)
 
+        # 🔴 EN KRİTİK SATIRLAR
+        page1_layout = QVBoxLayout(self.page1)
+        page1_layout.setContentsMargins(0, 0, 0, 0)
+        page1_layout.addWidget(self.kaydirma_alani)
+
+        # Stack
         self.stack.addWidget(self.page1)
         self.stack.addWidget(self.page2)
+
+        self.ana_dikey_layout.addWidget(self.stack)
         self.stack.setCurrentIndex(0)
 
         self.retranslateUi(Dialog)
         QMetaObject.connectSlotsByName(Dialog)
 
     def arac_karti_ekle(self, satir, sutun, marka, model, plaka, fiyat):
-        self.izgara_layout_araclar.addWidget(araba_kart(marka=marka,model=model,plaka=plaka,fiyat=fiyat), satir, sutun)
+        araba = araba_kart(marka=marka,model=model,plaka=plaka,fiyat=fiyat)
+        araba.buton_goruntule.clicked.connect(self.arac_kart_tiklanma)
+        self.izgara_layout_araclar.addWidget(araba,satir,sutun)
+
+    def arac_kart_tiklanma(self):
+        self.stack.removeWidget(self.page2)
+        self.page2.deleteLater()
+
+        self.page2 = QWidget()
+        page2_layout = QVBoxLayout(self.page2)
+        page2_layout.setContentsMargins(0, 0, 0, 0)
+
+        araba_bilgi = AracDetayWidget()
+        page2_layout.addWidget(araba_bilgi)
+        self.stack.addWidget(self.page2)
+        self.stack.setCurrentWidget(self.page2)
+        
+
 
     def retranslateUi(self, Dialog):
         Dialog.setWindowTitle("Araç Kiralama Paneli")

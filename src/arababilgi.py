@@ -8,7 +8,6 @@ from PySide6.QtWidgets import (QApplication, QDialog, QGridLayout, QLabel,
 # Dosya yolları için
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-
 class Ui_AracDetayDialog(object):
     def setupUi(self, AracDetayDialog):
         if not AracDetayDialog.objectName():
@@ -180,11 +179,11 @@ class Ui_AracDetayDialog(object):
         AracDetayDialog.setWindowTitle("Araç Detayı ve Kiralama")
 
 
-if __name__ == "__main__":
-    app = QApplication(sys.argv)
-    app.setFont(QFont("Segoe UI", 10))
-    pencere = QDialog()
-    ui = Ui_AracDetayDialog()
-    ui.setupUi(pencere)
-    pencere.show()
-    sys.exit(app.exec())
+
+
+class AracDetayWidget(QWidget):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+
+        self.ui = Ui_AracDetayDialog()
+        self.ui.setupUi(self)

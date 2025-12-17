@@ -163,13 +163,3 @@ class ModernLoginDialog(QDialog):
             background-color: rgba(255, 255, 255, 50); 
         }
         """
-
-
-# Main
-if __name__ == "__main__":
-    app = QApplication(sys.argv)
-    app.setStyle("Fusion")
-
-    pencere = ModernLoginDialog()
-    pencere.show()
-    sys.exit(app.exec())

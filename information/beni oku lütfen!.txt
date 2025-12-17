@@ -1,0 +1,64 @@
+UML dosyasındaki classların ve fonksiyonların işlevleri
+
+kullanici
+	
+
+"aktif_kiralamalar" değişkeni dışındaki bütün değişkenler sabit değerler olacak
+yani dinamik olarak değişmeyecek sadece aktif_kiralamalar değişkeni yeni bir kiralama nesnesi
+oluşturulduğunda kiralama nesnesinin içerisindeki constructure'ında var olan kullanici_id değişkeni ile 
+aktif_kiralamalar listesinin içesinde araba append edilerek değişebilecek bir de program açıldığında database den veri okunurken kiralama nesnesinin bitiş tarihi geldiyse pop edilerek silinecek.
+
+kullanici nesnesini iki tane contructure ı olucak bir tanesi bütün verileri alan isim,tc_no
+ama aktif_kiralamalar değişken olarak alınmayacak zaten kiralama nesnesi onun içeriğini dolduracak
+ikinci consturcture dict nesnesi alacak bunu almasının sebebi database den json formatında
+okunan veri dict verisi döndürmesi bu sözlüğün içerisndeki verileri direkt olarak kullanicini içerisindeki verilere atanacak
+
+sozluk_veri fonksiyonu ise database veri kaydetmek için kullanici verilerini bir dict e dönüşütürüp geri döndürdüğümüz bir fonksiyon olacak
+
+
+
+kiralama
+
+kullanici araci kiralayan kullanicinin referansi araba da arabanın referansı tarih
+bilgileri zaten date nesnesinden olacak ucret de arabanın ucreti ile gun sayısının carpılasmı
+ile bulunacak
+
+kiralamanın da iki farkı consturcture yapısı var ikinic zaten anlattığım gibi dict den alıyor verileri ilk consturture ise ucret dışında bütün verileri istiyor ha bir de ilk consturcture
+bir işlevi de yukarıda anlattığım gibi kullanicinin içerisindeki aktif_kiralamalar listesinde değişiklik yapmamızı sağlıyor. bir de arabanın durum bilgisini değiştiriyoruz true ise false yapıyoruz false ile bir hata döndüreceğiz o da zaten kirada olan bir arabayı kiralamaya çalıştığı için.
+
+
+
+araç
+
+plaka , model, marka, ucret gibi bilgilerin hepsi değişmeyen veriler olarak kalacak sadece durum bilgisi kiralanma durumuna göre değişicek bu değişikliği de kiralama classı yapacak
+onun dışında eğer istersen admin kendi arabasını ücretine zam yapmak isterse o bazı bilgileri değiştirebilir.
+consturcture iki tane olcak bir tanesi bütün verileri istiyecek diğeri ise zaten dict yapısı tekrar anlatmıyorum.
+
+
+
+admin
+
+bu class zaten kullanici classında kalıtım alacak onun alt sınıfı olacak ekstra araba ekleme ve silme özelliği bulunacak ekleyip silme işlemlerini yaptığında sahip olduğu araba
+silinecek ama aynı zamanda uygulama classının içerisindeki arabalar da değişecek ve o class dan da silinecek 
+araba_ekle bu fonksiyon da aynı şekilde iki liste içinde güncellemeyi yapmalı
+
+
+
+database
+
+bu class dosyadan veri okuma ve yazma işlemlerini yönetecek dosya nesnesi database'in dosya yolunu tutacak içerisinde zaten iki adet fonksiyon var
+verileri_yazdir fonksiyonu veri adındaki liste türünde veri alacak ve her elemanı dict olacak bu dict içerisndeki veriler dosya yolundaki json dosyasına yazdırılacak
+dict nesneleri zaten kullanici, araç gibi classların içerinde hepsinin içeriğindeki verileri dict e dönüştüren sozluk_veri adında bir fonksiyon var bu fonksiyon sayesinde
+her class zaten yazılmasını istediği verileri kendi içerisnde özelleştirecek.
+
+veri_oku fonksiyonu ise bu sefer json dosyasının içerisindeki bütün verilerin okuyarak bu verileri ayıklayacak ve hepsini bir listeye atacak bu liste geri döndürülecek
+listedeki verileri classlara atarma işlemini database yapmayacak o sadece verileri listeleyecek class lara aktarma işlemi uygulama classının içerisinde verileri_oku fonskiyonunda yapılacak
+
+
+
+uygulama
+
+bu class bütün nesneleri içerisinde barındıran class olacak bütün yönetim işlemini bunun üzerinden yapacağız
+
+
+

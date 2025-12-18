@@ -8,6 +8,7 @@ from PySide6.QtWidgets import (QApplication, QComboBox, QDialog, QGridLayout,
 
 from src.araba_kart import araba_kart
 from src.arababilgi import AracDetayWidget
+from src.flowlayout import FlowLayout
 #Python dosyasının adresi
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -22,11 +23,11 @@ class Ui_Dialog(object):
 
         self.ana_dikey_layout = QVBoxLayout(Dialog)
         self.ana_dikey_layout.setSpacing(20)
-        self.ana_dikey_layout.setContentsMargins(20, 20, 20, 20)
+        self.ana_dikey_layout.setContentsMargins(0, 0, 0, 0)
 
         #Üst Kısım
         self.ust_bar_cerceve = QFrame(Dialog)
-        self.ust_bar_cerceve.setStyleSheet(u"background-color: #2E3A59; border-radius: 15px;")
+        self.ust_bar_cerceve.setStyleSheet(u"background-color: #2E3A59;")
         self.ust_yatay_layout = QHBoxLayout(self.ust_bar_cerceve)
         self.ust_yatay_layout.setContentsMargins(15, 10, 15, 10)
 
@@ -82,8 +83,9 @@ class Ui_Dialog(object):
         self.kaydirma_alani.setStyleSheet("border: none; background-color: transparent;")
 
         self.kaydirma_icerik_widget = QWidget()
-        self.izgara_layout_araclar = QGridLayout(self.kaydirma_icerik_widget)
-        self.izgara_layout_araclar.setSpacing(20)
+        self.izgara_layout_araclar = FlowLayout(self.kaydirma_icerik_widget)
+        #self.izgara_layout_araclar.setSpacing(5)
+        self.izgara_layout_araclar.setContentsMargins(10, 0, 10, 0)
         # self.izgara_layout_araclar.setAlignment(Qt.AlignTop | Qt.AlignLeft)
 
         # self.kaydirma_icerik_widget.setSizePolicy(
@@ -95,12 +97,18 @@ class Ui_Dialog(object):
         self.arac_karti_ekle(0, 0, "Tesla Model 3", "2023", "34 ABC 123", "2500 TL")
         self.arac_karti_ekle(0, 1, "BMW i4", "2024", "34 DEF 456", "3200 TL")
         self.arac_karti_ekle(1, 0, "Audi A4", "2022", "34 GHI 789", "1800 TL")
+        self.arac_karti_ekle(1, 0, "Audi A4", "2022", "34 GHI 789", "1800 TL")
+        self.arac_karti_ekle(1, 0, "Audi A4", "2022", "34 GHI 789", "1800 TL")
+        self.arac_karti_ekle(1, 0, "Audi A4", "2022", "34 GHI 789", "1800 TL")
+        self.arac_karti_ekle(1, 0, "Audi A4", "2022", "34 GHI 789", "1800 TL")
+        self.arac_karti_ekle(1, 0, "Audi A4", "2022", "34 GHI 789", "1800 TL")
+        self.arac_karti_ekle(1, 0, "Audi A4", "2022", "34 GHI 789", "1800 TL")
 
         self.kaydirma_alani.setWidget(self.kaydirma_icerik_widget)
 
         # 🔴 EN KRİTİK SATIRLAR
         page1_layout = QVBoxLayout(self.page1)
-        page1_layout.setContentsMargins(0, 0, 0, 0)
+        page1_layout.setContentsMargins(10, 0, 0, 0)
         page1_layout.addWidget(self.kaydirma_alani)
 
         # Stack
@@ -116,7 +124,7 @@ class Ui_Dialog(object):
     def arac_karti_ekle(self, satir, sutun, marka, model, plaka, fiyat):
         araba = araba_kart(marka=marka,model=model,plaka=plaka,fiyat=fiyat)
         araba.buton_goruntule.clicked.connect(self.arac_kart_tiklanma)
-        self.izgara_layout_araclar.addWidget(araba,satir,sutun)
+        self.izgara_layout_araclar.addWidget(araba)
 
     def arac_kart_tiklanma(self):
         self.stack.removeWidget(self.page2)

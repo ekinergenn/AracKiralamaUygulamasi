@@ -1,15 +1,16 @@
 import sys
-import os  #Fotoğraflara ulaşmak için
+import os  # Fotoğraflara ulaşmak için
 from PySide6.QtCore import (QCoreApplication, QSize, QRect, Qt, QMetaObject)
 from PySide6.QtGui import (QColor, QFont, QPixmap)
 from PySide6.QtWidgets import (QApplication, QComboBox, QDialog, QGridLayout,
                                QHBoxLayout, QLabel, QLineEdit, QPushButton,
-                               QScrollArea, QVBoxLayout, QWidget, QFrame,QStackedWidget,QSizePolicy)
+                               QScrollArea, QVBoxLayout, QWidget, QFrame, QStackedWidget, QSizePolicy)
 
 from src.araba_kart import araba_kart
 from src.arababilgi import AracDetayWidget
 from src.flowlayout import FlowLayout
-#Python dosyasının adresi
+
+# Python dosyasının adresi
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
@@ -25,18 +26,19 @@ class Ui_Dialog(object):
         self.ana_dikey_layout.setSpacing(20)
         self.ana_dikey_layout.setContentsMargins(0, 0, 0, 0)
 
-        #Üst Kısım
+        # Üst Kısım
         self.ust_bar_cerceve = QFrame(Dialog)
         self.ust_bar_cerceve.setStyleSheet(u"background-color: #2E3A59;")
         self.ust_yatay_layout = QHBoxLayout(self.ust_bar_cerceve)
         self.ust_yatay_layout.setContentsMargins(15, 10, 15, 10)
 
-        #PP
+        # PP
         self.etiket_profil_resim = QLabel(self.ust_bar_cerceve)
         self.etiket_profil_resim.setFixedSize(50, 50)
-        self.etiket_profil_resim.setStyleSheet("border-radius: 25px; background-color: #4A5568; border: 2px solid white;")
+        self.etiket_profil_resim.setStyleSheet(
+            "border-radius: 25px; background-color: #4A5568; border: 2px solid white;")
 
-        #PP adresi
+        # PP adresi
         profile_path = os.path.join(BASE_DIR, "../icon/profilepp.png")
         if os.path.exists(profile_path):
             self.etiket_profil_resim.setPixmap(QPixmap(profile_path))
@@ -44,7 +46,7 @@ class Ui_Dialog(object):
         self.etiket_profil_resim.setScaledContents(True)
         self.ust_yatay_layout.addWidget(self.etiket_profil_resim)
 
-        #Mail kısmı
+        # Mail kısmı
         self.etiket_mail = QLabel(self.ust_bar_cerceve)
         self.etiket_mail.setText("ornek@gmail.com")
         self.etiket_mail.setStyleSheet("color: white; font-weight: bold; font-size: 14px; padding-left: 10px;")
@@ -52,14 +54,14 @@ class Ui_Dialog(object):
 
         self.ust_yatay_layout.addStretch()
 
-        #Arama
+        # Arama
         self.arama_satiri = QLineEdit(self.ust_bar_cerceve)
         self.arama_satiri.setPlaceholderText("Araç ara...")
         self.arama_satiri.setFixedWidth(250)
         self.arama_satiri.setStyleSheet("border-radius: 10px; padding: 8px; background-color: white; color: #2E3A59;")
         self.ust_yatay_layout.addWidget(self.arama_satiri)
 
-        #Filtrele ve Sırala
+        # Filtrele ve Sırala
         combo_stil = "background-color: #4A5568; color: white; border-radius: 8px; padding: 5px; min-width: 110px;"
         self.combo_sirala = QComboBox(self.ust_bar_cerceve)
         self.combo_sirala.addItems(["Fiyat: Artan", "Fiyat: Azalan"])
@@ -84,7 +86,7 @@ class Ui_Dialog(object):
 
         self.kaydirma_icerik_widget = QWidget()
         self.izgara_layout_araclar = FlowLayout(self.kaydirma_icerik_widget)
-        #self.izgara_layout_araclar.setSpacing(5)
+        # self.izgara_layout_araclar.setSpacing(5)
         self.izgara_layout_araclar.setContentsMargins(10, 0, 10, 0)
         # self.izgara_layout_araclar.setAlignment(Qt.AlignTop | Qt.AlignLeft)
 
@@ -122,7 +124,7 @@ class Ui_Dialog(object):
         QMetaObject.connectSlotsByName(Dialog)
 
     def arac_karti_ekle(self, satir, sutun, marka, model, plaka, fiyat):
-        araba = araba_kart(marka=marka,model=model,plaka=plaka,fiyat=fiyat)
+        araba = araba_kart(marka=marka, model=model, plaka=plaka, fiyat=fiyat)
         araba.buton_goruntule.clicked.connect(self.arac_kart_tiklanma)
         self.izgara_layout_araclar.addWidget(araba)
 
@@ -138,8 +140,6 @@ class Ui_Dialog(object):
         page2_layout.addWidget(araba_bilgi)
         self.stack.addWidget(self.page2)
         self.stack.setCurrentWidget(self.page2)
-        
-
 
     def retranslateUi(self, Dialog):
         Dialog.setWindowTitle("Araç Kiralama Paneli")

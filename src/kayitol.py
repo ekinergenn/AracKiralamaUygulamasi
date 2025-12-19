@@ -5,7 +5,7 @@ from PySide6.QtWidgets import (QApplication, QDialog, QFrame, QGridLayout,
                                QHBoxLayout, QLabel, QLineEdit, QPushButton, QSizePolicy, QVBoxLayout, QWidget)
 
 
-class RegisterDialog(QDialog):
+class RegisterDialog(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setWindowTitle("Yeni Hesap Oluştur")
@@ -123,11 +123,11 @@ class RegisterDialog(QDialog):
         """
 
 
-# Main
-if __name__ == "__main__":
-    app = QApplication(sys.argv)
-    app.setStyle("Fusion")
+# # Main
+# if __name__ == "__main__":
+#     app = QApplication(sys.argv)
+#     app.setStyle("Fusion")
 
-    pencere = RegisterDialog()
-    pencere.show()
-    sys.exit(app.exec())
+#     pencere = RegisterDialog()
+#     pencere.show()
+#     sys.exit(app.exec())

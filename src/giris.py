@@ -3,10 +3,10 @@ from PySide6.QtCore import (QCoreApplication, QMetaObject, QRect, QSize, Qt)
 from PySide6.QtGui import (QFont, QIcon, QColor)
 from PySide6.QtWidgets import (QApplication, QDialog, QFrame, QGridLayout,
                                QHBoxLayout, QLabel, QLineEdit, QPushButton, QSizePolicy, QVBoxLayout, QWidget,
-                               QSpacerItem, QLayout, QGraphicsDropShadowEffect)
+                               QSpacerItem, QLayout, QGraphicsDropShadowEffect,QMessageBox)
 
 
-class ModernLoginDialog(QDialog):
+class ModernLoginDialog(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setWindowTitle("Kullanıcı Girişi")
@@ -74,9 +74,9 @@ class ModernLoginDialog(QDialog):
         self.etiket_bilgi_metni.setWordWrap(True)
         self.etiket_bilgi_metni.setStyleSheet("color: #EFEFEF; font-size: 14px;")
         self.bilgi_dikey_layout.addWidget(self.etiket_bilgi_metni)
-
+        
         self.bilgi_dikey_layout.addSpacing(30)
-
+        
         # Kayıt Ol Butonu
         self.buton_kayit_ol = QPushButton("KAYIT OL")
         self.buton_kayit_ol.setObjectName("KayitButonu")
@@ -88,6 +88,7 @@ class ModernLoginDialog(QDialog):
         self.ana_yatay_layout.addWidget(self.sol_cerceve)
         self.ana_yatay_layout.addWidget(self.sag_cerceve)
 
+    
     def font_getir(self, boyut, kalin=False):
         font = QFont("Arial")
         font.setPointSize(boyut)
@@ -143,8 +144,8 @@ class ModernLoginDialog(QDialog):
             background-color: #2E3A59; 
             border-top-left-radius: 0px;
             border-bottom-left-radius: 0px;
-            border-top-right-radius: 12px;
-            border-bottom-right-radius: 12px;
+            border-top-right-radius: 0px;
+            border-bottom-right-radius: 0px;
         }
         """
 

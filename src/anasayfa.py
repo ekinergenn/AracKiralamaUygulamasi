@@ -1,5 +1,5 @@
 import sys
-import os  #Fotoğraflara ulaşmak için
+import os  # Fotoğraflara ulaşmak için
 from PySide6.QtCore import (QCoreApplication, QSize, QRect, Qt, QMetaObject)
 from PySide6.QtGui import (QColor, QFont, QPixmap)
 from PySide6.QtWidgets import (QApplication, QComboBox, QDialog, QGridLayout,
@@ -142,7 +142,7 @@ class Ui_Dialog(object):
 
         # gene ana_stack widgetı bütün ekranı kaplasın diye bir layout un içerisine koyuyuruz
         self.ana_layout.addWidget(self.ana_stack)
-        
+
         self.retranslateUi(Dialog)
         QMetaObject.connectSlotsByName(Dialog)
 
@@ -189,10 +189,10 @@ class Ui_Dialog(object):
         else:
             # burda uygulama classındaki kullanicileri kontrol ederek bir eşleşmeye bakar eğer varsa diğer ekrana geçirir
             self.ana_stack.setCurrentWidget(self.ana_ekran)
-            
-            # eğer eşleleşme olmazsa tekrar bir mesaj bloğu ile şifre veya mail hatalı uyarısı atacağız 
 
- 
+            # eğer eşleleşme olmazsa tekrar bir mesaj bloğu ile şifre veya mail hatalı uyarısı atacağız
+
+
 
 
     def retranslateUi(self, Dialog):

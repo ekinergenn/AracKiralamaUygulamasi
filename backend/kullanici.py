@@ -2,20 +2,23 @@ class kullanici:
     def __init__(self,isim:str,sifre:str,eposta:str,telefon_num:str,id:int):
         self.isim = isim
         self.sifre = sifre
-        self.eposte = eposta
+        self.eposta = eposta
         self.telefon_num = telefon_num
         self.id = id
 
         self.aktif_kiralamalar = []
 
-    def __init__(self,veri:dict):
-        self.isim = veri["isim"]
-        self.sifre = veri["sifre"]
-        self.eposta = veri["eposta"]
-        self.telefon_num = veri["telefon_num"]
-        self.id = veri["id"]
-        self.aktif_kiralamalar = veri["aktif_kiralamalar"]
-
+    @classmethod
+    def from_dict(cls, veri: dict):
+        obj = cls(
+            veri["isim"],
+            veri["sifre"],
+            veri["eposta"],
+            veri["telefon_num"],
+            veri["id"]
+        )
+        obj.aktif_kiralamalar = veri.get("aktif_kiralamalar", [])
+        return obj
 
     def sozluk_veri(self) -> dict:
         veri = {"isim":"",

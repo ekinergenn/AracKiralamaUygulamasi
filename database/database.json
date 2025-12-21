@@ -1,43 +1,51 @@
 {
-    "kullanicilar":[
+    "kullanicilar": [
         {
-            "isim":"",
-            "sifre":"",
-            "eposta":"",
-            "telefon_num":"",
-            "id":null,
-            "aktif_kiralamalar":[]
+            "isim": "burak",
+            "sifre": "12345",
+            "eposta": "burakiskar@gmail.com",
+            "telefon_num": "456464646423",
+            "id": 1,
+            "aktif_kiralamalar": [
+                1
+            ]
+        },
+        {
+            "isim": "ekin",
+            "sifre": "12345",
+            "eposta": "ekinergen@gmail.com",
+            "telefon_num": "456464646423",
+            "id": 2,
+            "aktif_kiralamalar": []
         }
     ],
-        "adminler":[
+    "adminler": [],
+    "arabalar": [
         {
-            "isim":"",
-            "sifre":"",
-            "eposta":"",
-            "telefon_num":"",
-            "id":null,
-            "aktif_kiralamalar":[],
-            "sahip_arabalar":[]
+            "plaka": "34 DEF 456",
+            "marka": "BMW i4",
+            "model": "2024",
+            "ucret": 3200,
+            "durum": true,
+            "id": 1
+        },
+        {
+            "plaka": "34 ABC 123",
+            "marka": "Tesla Model 3",
+            "model": "2023",
+            "ucret": 2500,
+            "durum": false,
+            "id": 1
         }
     ],
-    "arabalar":[
+    "kiralamalar": [
         {
-            "plaka":"",
-            "marka":"",
-            "model":"",
-            "ucret":null,
-            "durum":false,
-            "id":null
-        }
-    ],
-    "kiralamalar":[
-        {
-            "kullanici":null,
-            "araba":null,
-            "bas_tarih":"",
-            "bit_tarih":"",
-            "ucret":null,
-            "id":null
+            "kullanici": 1,
+            "araba": 1,
+            "bas_tarih": "2025-12-21",
+            "bit_tarih": "2025-12-24",
+            "ucret": 9600,
+            "id": 0
         }
     ]
 }

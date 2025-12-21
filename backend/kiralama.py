@@ -1,9 +1,6 @@
 from datetime import date
-from backend.uygulama import uygulama
-
-
 class kiralama:
-    def __init__(self,kullanici:int,araba:int,bas_tarih:date,bit_tarih:date,ucret:float,id:int,app:uygulama):
+    def __init__(self,kullanici:int,araba:int,bas_tarih:date,bit_tarih:date,ucret:float,id:int,app):
         self.kullanici = kullanici
         self.araba = araba
         self.bas_tarih = bas_tarih
@@ -18,22 +15,22 @@ class kiralama:
             pass
 
 
-    def __init__(self,veri:dict,app:uygulama):
-        self.kullanici = veri["kullanici"]
-        self.araba = veri["araba"]
-        data_str = veri["bas_tarih"].split("-")
-        self.bas_tarih = date(int(data_str[0]),int(data_str[1]),int(data_str[2]))
-        data_str = veri["bit_tarih"].split("-")
-        self.bit_tarih = date(int(data_str[0]),int(data_str[1]),int(data_str[2]))
-        self.ucret = veri["ucret"]
-        self.id = veri["id"]
+    @classmethod
+    def from_dict(cls, veri, app):
+        y, m, d = map(int, veri["bas_tarih"].split("-"))
+        bas = date(y, m, d)
+        y, m, d = map(int, veri["bit_tarih"].split("-"))
+        bit = date(y, m, d)
 
-
-        if app.araba_id_arama(self.araba).durum == False:
-            app.kullanici_id_arama(self.kullanici).aktif_kiralamalar.append(self.araba)
-            app.araba_id_arama(self.araba).durum = True
-        else:
-            pass
+        return cls(
+            veri["kullanici"],
+            veri["araba"],
+            bas,
+            bit,
+            veri["ucret"],
+            veri["id"],
+            app
+        )
 
 
     def sozluk_veri(self) -> dict:

@@ -7,14 +7,18 @@ class admin(kullanici):
         self.sahip_arabalar = []
 
 
-    def __init__(self,veri:dict):
-        self.isim = veri["isim"]
-        self.sifre = veri["sifre"]
-        self.eposta = veri["eposta"]
-        self.telefon_num = veri["telefon_num"]
-        self.id = veri["id"]
-        self.aktif_kiralamalar = veri["aktif_kiralamalar"]
-        self.sahip_arabalar = veri["sahip_arabalar"]
+    @classmethod
+    def from_dict(cls, veri: dict):
+        obj = cls(
+            veri["isim"],
+            veri["sifre"],
+            veri["eposta"],
+            veri["telefon_num"],
+            veri["id"]
+        )
+        obj.aktif_kiralamalar = list(veri.get("aktif_kiralamalar", []))
+        obj.sahip_arabalar = list(veri.get("sahip_arabalar", []))
+        return obj
 
     def sozluk_veri(self) -> dict:
         veri = {"isim":"",

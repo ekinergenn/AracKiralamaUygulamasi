@@ -38,7 +38,7 @@ class Ui_ProfilSekmesi(object):
         self.etiket_profil_resim.setStyleSheet(
             u"border-radius: 50px; border: 3px solid white; background-color: #4A5568;")
 
-        profil_yolu = os.path.join(BASE_DIR, "profilepp.png")
+        profil_yolu = os.path.join(BASE_DIR, "../icon/profilepp.png")
         if os.path.exists(profil_yolu):
             self.etiket_profil_resim.setPixmap(QPixmap(profil_yolu))
         self.etiket_profil_resim.setScaledContents(True)
@@ -120,13 +120,21 @@ class Ui_ProfilSekmesi(object):
         ProfilSekmesi.setWindowTitle(QCoreApplication.translate("ProfilSekmesi", u"Profilim", None))
 
 
-if __name__ == "__main__":
-    app = QApplication(sys.argv)
+class ProfilSayfasiWidget(QWidget):
 
-    app.setFont(QFont("Segoe UI", 10))
+    def __init__(self,parent=None):
+        super().__init__(parent)
+        self.ui = Ui_ProfilSekmesi()
+        self.ui.setupUi(self)
 
-    dialog = QDialog()
-    ui = Ui_ProfilSekmesi()
-    ui.setupUi(dialog)
-    dialog.show()
-    sys.exit(app.exec())
+
+# if __name__ == "__main__":
+#     app = QApplication(sys.argv)
+
+#     app.setFont(QFont("Segoe UI", 10))
+
+#     dialog = QDialog()
+#     ui = Ui_ProfilSekmesi()
+#     ui.setupUi(dialog)
+#     dialog.show()
+#     sys.exit(app.exec())

@@ -10,11 +10,11 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 class araba_kart(QFrame):
 
-    def __init__(self, marka, model, plaka, fiyat, parent=None):
+    def __init__(self, marka, model, plaka, fiyat,id, parent=None):
         super().__init__(parent)
         self.setFixedSize(380, 200)
         self.setStyleSheet("background-color: white; border-radius: 15px; border: 1px solid #E2E8F0;")
-        
+        self.id = id
         self.kart_yatay_layout = QHBoxLayout(self)
 
         #Araba Resmi

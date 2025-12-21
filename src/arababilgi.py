@@ -9,6 +9,9 @@ from PySide6.QtWidgets import (QApplication, QDialog, QGridLayout, QLabel,
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 class Ui_AracDetayDialog(object):
+    def __init__(self,araba):
+        self.araba = araba
+        
     def setupUi(self, AracDetayDialog):
         if not AracDetayDialog.objectName():
             AracDetayDialog.setObjectName(u"AracDetayDialog")
@@ -46,12 +49,12 @@ class Ui_AracDetayDialog(object):
 
         baslik_font = QFont("Segoe UI", 11, QFont.Bold)
 
-        self.etiket_marka = QLabel("Marka: Tesla")
-        self.etiket_model = QLabel("Model: Model 3")
-        self.etiket_plaka = QLabel("Plaka: 34 ABC 123")
-        self.etiket_ucret = QLabel("Günlük Ücret: 2.500 TL")
-        self.etiket_durum = QLabel("Durum: Müsait")
-        self.etiket_kiralayan = QLabel("Kiralayan: -")
+        self.etiket_marka = QLabel(self.araba.marka)
+        self.etiket_model = QLabel(self.araba.model)
+        self.etiket_plaka = QLabel(self.araba.plaka)
+        self.etiket_ucret = QLabel("Günlük Ücret: " + str(self.araba.ucret) + " TL")
+        self.etiket_durum = QLabel("Durum: " +("Musait" if not self.araba.durum else "Kirada"))
+        self.etiket_kiralayan = QLabel("Kiralayan: " + "-")
 
         bilgi_etiketleri = [self.etiket_marka, self.etiket_model, self.etiket_plaka,
                             self.etiket_ucret, self.etiket_durum, self.etiket_kiralayan]
@@ -204,10 +207,9 @@ class Ui_AracDetayDialog(object):
 class AracDetayWidget(QWidget):
     geri_don_sinyali = Signal()
 
-    def __init__(self, parent=None):
+    def __init__(self, araba,parent=None):
         super().__init__(parent)
-
-        self.ui = Ui_AracDetayDialog()
+        self.ui = Ui_AracDetayDialog(araba)
         self.ui.setupUi(self)
 
         # geri don butonu islevsel

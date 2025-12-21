@@ -9,13 +9,16 @@ class araba:
         self.durum = durum
         self.id = id
 
-    def __init__(self,veri:dict):
-        self.plaka = veri["plaka"]
-        self.marka = veri["marka"]
-        self.model = veri["model"]
-        self.ucret = veri["ucret"]
-        self.durum = veri["durum"]
-        self.id = veri["id"]
+    @classmethod
+    def from_dict(cls, veri: dict):
+        return cls(
+            veri["plaka"],
+            veri["marka"],
+            veri["model"],
+            veri["ucret"],
+            veri["durum"],
+            veri["id"]
+        )
 
     def sozluk_veri(self) -> dict:
         veri = {

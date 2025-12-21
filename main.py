@@ -2,6 +2,7 @@ import sys
 from PySide6.QtWidgets import QApplication, QDialog
 from src.anasayfa import Ui_Dialog
 
+
 class AnaEkran(QDialog):
     def __init__(self):
         super().__init__()

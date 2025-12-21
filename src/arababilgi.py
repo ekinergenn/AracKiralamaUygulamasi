@@ -1,6 +1,6 @@
 import sys
 import os
-from PySide6.QtCore import (QCoreApplication, QMetaObject, QSize, Qt, QDate)
+from PySide6.QtCore import (QCoreApplication, QMetaObject, QSize, Qt, QDate, Signal)
 from PySide6.QtGui import (QColor, QFont, QPixmap)
 from PySide6.QtWidgets import (QApplication, QDialog, QGridLayout, QLabel,
                                QPushButton, QDateEdit, QVBoxLayout, QWidget, QFrame, QHBoxLayout)
@@ -146,8 +146,26 @@ class Ui_AracDetayDialog(object):
 
         # Ücret ve Buton Alanı
         self.v_layout_onay = QVBoxLayout()
+        self.v_layout_onay.setSpacing(10)
+
         self.etiket_toplam_ucret = QLabel("Toplam: 2.500 TL")
         self.etiket_toplam_ucret.setStyleSheet("font-size: 16px; color: #2E3A59; font-weight: bold; border: none;")
+
+        self.buton_geri_don = QPushButton("← Geri Dön")
+        self.buton_geri_don.setCursor(Qt.PointingHandCursor)
+        self.buton_geri_don.setStyleSheet("""
+            QPushButton {
+                background-color: #718096;
+                color: white;
+                border-radius: 8px;
+                padding: 10px 20px;
+                font-weight: bold;
+                font-size: 14px;
+            }
+            QPushButton:hover { 
+                background-color: #4A5568; 
+            }
+        """)
 
         self.buton_kirala = QPushButton("Hemen Kirala")
         self.buton_kirala.setCursor(Qt.PointingHandCursor)
@@ -156,15 +174,19 @@ class Ui_AracDetayDialog(object):
                 background-color: #2E3A59;
                 color: white;
                 border-radius: 8px;
-                padding: 10px 25px;
+                padding: 12px 25px;
                 font-weight: bold;
                 font-size: 14px;
             }
-            QPushButton:hover { background-color: #4A5568; }
+            QPushButton:hover { 
+                background-color: #4A5568; 
+            }
         """)
 
+        self.v_layout_onay.addWidget(self.buton_geri_don)
         self.v_layout_onay.addWidget(self.etiket_toplam_ucret)
         self.v_layout_onay.addWidget(self.buton_kirala)
+        self.v_layout_onay.addStretch()
 
         self.islem_yatay_layout.addLayout(self.v_layout_baslangic)
         self.islem_yatay_layout.addLayout(self.v_layout_bitis)
@@ -179,11 +201,28 @@ class Ui_AracDetayDialog(object):
         AracDetayDialog.setWindowTitle("Araç Detayı ve Kiralama")
 
 
-
-
 class AracDetayWidget(QWidget):
+    geri_don_sinyali = Signal()
+
     def __init__(self, parent=None):
         super().__init__(parent)
 
         self.ui = Ui_AracDetayDialog()
         self.ui.setupUi(self)
+
+        # geri don butonu islevsel
+        self.ui.buton_geri_don.clicked.connect(self.geri_don)
+
+    def geri_don(self):
+        # sinyal gonder (anasayfa.py bu sinyali dinleyecek)
+        self.geri_don_sinyali.emit()
+
+    def arac_bilgilerini_guncelle(self, marka, model, plaka, ucret, durum=True):
+        self.ui.etiket_marka.setText(f"Marka: {marka}")
+        self.ui.etiket_model.setText(f"Model: {model}")
+        self.ui.etiket_plaka.setText(f"Plaka: {plaka}")
+        self.ui.etiket_ucret.setText(f"Günlük Ücret: {ucret} TL")
+
+        durum_metni = "Müsait" if durum else "Kirada"
+        self.ui.etiket_durum.setText(f"Durum: {durum_metni}")
+        self.ui.etiket_toplam_ucret.setText(f"Toplam: {ucret} TL")

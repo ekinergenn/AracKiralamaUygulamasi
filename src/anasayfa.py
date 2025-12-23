@@ -1,5 +1,5 @@
 import sys
-import os  # Fotoğraflara ulaşmak için
+import os
 from PySide6.QtCore import (QCoreApplication, QSize, QRect, Qt, QMetaObject)
 from PySide6.QtGui import (QColor, QFont, QPixmap)
 from PySide6.QtWidgets import (QApplication, QComboBox, QDialog, QGridLayout,
@@ -11,7 +11,7 @@ from src.arababilgi import AracDetayWidget
 from src.flowlayout import FlowLayout
 from src.giris import ModernLoginDialog
 from src.kayitol import RegisterDialog
-from src.profilsayfası import Ui_ProfilSekmesi
+from src.profilsayfası import ProfilWidget
 
 # Python dosyasının adresi
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -44,23 +44,41 @@ class Ui_Dialog(object):
         self.ust_yatay_layout.setContentsMargins(15, 10, 15, 10)
 
         # PP
-        self.etiket_profil_resim = QLabel(self.ust_bar_cerceve)
+        self.etiket_profil_resim = QPushButton(self.ust_bar_cerceve)  # QPushButton olarak değiştir
         self.etiket_profil_resim.setFixedSize(50, 50)
         self.etiket_profil_resim.setStyleSheet(
             "border-radius: 25px; background-color: #4A5568; border: 2px solid white;")
+        self.etiket_profil_resim.setCursor(Qt.PointingHandCursor)
+        self.etiket_profil_resim.setFlat(True)  # Arka planı şeffaf yap
 
         # PP adresi
-        profile_path = os.path.join(BASE_DIR, "../icon/profilepp.png")
+        profile_path = os.path.join(BASE_DIR, "..", "icon", "profilepp.png")
         if os.path.exists(profile_path):
-            self.etiket_profil_resim.setPixmap(QPixmap(profile_path))
+            icon = QPixmap(profile_path)
+            self.etiket_profil_resim.setIcon(icon)
+            self.etiket_profil_resim.setIconSize(QSize(46, 46))
 
-        self.etiket_profil_resim.setScaledContents(True)
         self.ust_yatay_layout.addWidget(self.etiket_profil_resim)
 
         # Mail kısmı
-        self.etiket_mail = QLabel(self.ust_bar_cerceve)
+        self.etiket_mail = QPushButton(self.ust_bar_cerceve)  # QPushButton olarak değiştir
         self.etiket_mail.setText("ornek@gmail.com")
-        self.etiket_mail.setStyleSheet("color: white; font-weight: bold; font-size: 14px; padding-left: 10px;")
+        self.etiket_mail.setStyleSheet("""
+            QPushButton {
+                background-color: transparent;
+                color: white; 
+                font-weight: bold; 
+                font-size: 14px; 
+                padding-left: 10px;
+                border: none;
+                text-align: left;
+            }
+            QPushButton:hover {
+                color: #CBD5E0;
+            }
+        """)
+        self.etiket_mail.setCursor(Qt.PointingHandCursor)
+        self.etiket_mail.setFlat(True)
         self.ust_yatay_layout.addWidget(self.etiket_mail)
 
         self.ust_yatay_layout.addStretch()
@@ -97,75 +115,65 @@ class Ui_Dialog(object):
 
         self.kaydirma_icerik_widget = QWidget()
         self.izgara_layout_araclar = FlowLayout(self.kaydirma_icerik_widget)
-        # self.izgara_layout_araclar.setSpacing(5)
         self.izgara_layout_araclar.setContentsMargins(10, 0, 10, 0)
-        # self.izgara_layout_araclar.setAlignment(Qt.AlignTop | Qt.AlignLeft)
-
-        # self.kaydirma_icerik_widget.setSizePolicy(
-        #     QSizePolicy.Policy.Preferred,
-        #     QSizePolicy.Policy.Minimum
-        # )
 
         # Kartlar
-        self.arac_karti_ekle(0, 0, "Tesla Model 3", "2023", "34 ABC 123", "2500 TL")
-        self.arac_karti_ekle(0, 1, "BMW i4", "2024", "34 DEF 456", "3200 TL")
-        self.arac_karti_ekle(1, 0, "Audi A4", "2022", "34 GHI 789", "1800 TL")
-        self.arac_karti_ekle(1, 0, "Audi A4", "2022", "34 GHI 789", "1800 TL")
-        self.arac_karti_ekle(1, 0, "Audi A4", "2022", "34 GHI 789", "1800 TL")
-        self.arac_karti_ekle(1, 0, "Audi A4", "2022", "34 GHI 789", "1800 TL")
-        self.arac_karti_ekle(1, 0, "Audi A4", "2022", "34 GHI 789", "1800 TL")
-        self.arac_karti_ekle(1, 0, "Audi A4", "2022", "34 GHI 789", "1800 TL")
-        self.arac_karti_ekle(1, 0, "Audi A4", "2022", "34 GHI 789", "1800 TL")
+        self.arac_karti_ekle(0, 0, "Tesla Model 3", "2023", "34 ABC 123", "2500 TL", 1)
+        self.arac_karti_ekle(0, 1, "BMW i4", "2024", "34 DEF 456", "3200 TL", 2)
+        self.arac_karti_ekle(1, 0, "Audi A4", "2022", "34 GHI 789", "1800 TL", 3)
+        self.arac_karti_ekle(1, 0, "Audi A4", "2022", "34 GHI 789", "1800 TL", 4)
+        self.arac_karti_ekle(1, 0, "Audi A4", "2022", "34 GHI 789", "1800 TL", 5)
+        self.arac_karti_ekle(1, 0, "Audi A4", "2022", "34 GHI 789", "1800 TL", 6)
+        self.arac_karti_ekle(1, 0, "Audi A4", "2022", "34 GHI 789", "1800 TL", 7)
+        self.arac_karti_ekle(1, 0, "Audi A4", "2022", "34 GHI 789", "1800 TL", 8)
+        self.arac_karti_ekle(1, 0, "Audi A4", "2022", "34 GHI 789", "1800 TL", 9)
 
         self.kaydirma_alani.setWidget(self.kaydirma_icerik_widget)
 
-        # 🔴 EN KRİTİK SATIRLAR
         page1_layout = QVBoxLayout(self.page1)
         page1_layout.setContentsMargins(10, 0, 0, 0)
         page1_layout.addWidget(self.kaydirma_alani)
 
-        # bu Stack ana ekran içerisindeki bir araba ya batığımızda ekranın değişmesini sağlayan QStackWidgetın sayfalarını ekliyor
         self.stack.addWidget(self.page1)
         self.stack.addWidget(self.page2)
 
-        # ana_ekran daki stack in bütün ekranı kaplayabilemsi için bir layout içerisinde olası lazım
         self.ana_dikey_layout.addWidget(self.stack)
-        # ana_ekran içerisindeki stack widget ın sayfasını değiştiriyor
         self.stack.setCurrentIndex(0)
 
-        # bu stack widget da 4 temel sayfa (login,register,main,profile) ekranları arasında geçişyapılmasını sağlıyor bu sayede sayfalar arasında geçiş yaparken hiç baştan yükleme veya nesne oluşturulmuyor var olan sayfalar arasında geçiş yapılıyor
-        self.profil_ekran_widget = QWidget()
-        self.profil_ui = Ui_ProfilSekmesi()
-        self.profil_ui.setupUi(self.profil_ekran_widget)
+        # Profil sayfasını oluştur
+        self.profil_ekran_widget = ProfilWidget()
+        self.profil_ui = self.profil_ekran_widget
+        self.profil_ui.ana_sayfa_istem_sinyali.connect(lambda: self.ana_stack.setCurrentWidget(self.ana_ekran))
+
         self.ana_stack.addWidget(self.profil_ekran_widget)
         self.ana_stack.addWidget(self.ana_ekran)
         self.ana_stack.addWidget(self.giris_ekran)
         self.ana_stack.addWidget(self.kayitol_ekran)
 
-        # bu ana_stack in sayfaları arasında geçiş yapmasını sağlıyor uygulama ilk açıldığında giris_ekranını yüklenmesi ayarlanmış
         self.ana_stack.setCurrentWidget(self.giris_ekran)
 
-        # gene ana_stack widgetı bütün ekranı kaplasın diye bir layout un içerisine koyuyuruz
         self.ana_layout.addWidget(self.ana_stack)
 
         self.retranslateUi(Dialog)
         QMetaObject.connectSlotsByName(Dialog)
 
-        # bu kısımda click eventler var
+        # Tıklama bağlantıları
         self.giris_ekran.buton_giris_yap.clicked.connect(self.giris_yap_baglanti)
+        self.giris_ekran.buton_kayit_ol.clicked.connect(lambda: self.ana_stack.setCurrentWidget(self.kayitol_ekran))
 
-        # Profil resmi ve mail tıklanabilir yap
-        self.etiket_profil_resim.setCursor(Qt.PointingHandCursor)
-        self.etiket_mail.setCursor(Qt.PointingHandCursor)
+        # Kayıt ol sayfasından girişe dönüş
+        self.kayitol_ekran.etiket_giris_link.mousePressEvent = lambda e: (
+            self.ana_stack.setCurrentWidget(self.giris_ekran) if e.button() == Qt.LeftButton else None
+        )
 
-        # Tıklama olayları
-        self.etiket_profil_resim.mousePressEvent = self.profil_sayfasina_gec
-        self.etiket_mail.mousePressEvent = self.profil_sayfasina_gec
+        # Kayıt ol butonu
+        self.kayitol_ekran.buton_kayit_ol.clicked.connect(lambda: self.ana_stack.setCurrentWidget(self.ana_ekran))
 
-        # Profil sayfasından ana sayfaya dönüş
-        self.profil_ui.buton_ana_sayfa.clicked.connect(lambda: self.ana_stack.setCurrentWidget(self.ana_ekran))
+        # Profil resmi ve mail tıklama olayları
+        self.etiket_profil_resim.clicked.connect(self.profil_sayfasina_gec)
+        self.etiket_mail.clicked.connect(self.profil_sayfasina_gec)
 
-    def profil_sayfasina_gec(self, event=None):
+    def profil_sayfasina_gec(self):
         # Giriş yapan kullanıcının mailini profil sayfasına aktar
         guncel_mail = self.etiket_mail.text()
         self.profil_ui.etiket_kullanici_mail.setText(guncel_mail)
@@ -173,13 +181,11 @@ class Ui_Dialog(object):
         # Ekranı değiştir
         self.ana_stack.setCurrentWidget(self.profil_ekran_widget)
 
-    # araba_karların eklenmesi sağlanıyor aslında bunu burda yapmak yerine direkt nesne oluşturma ile yapıcam ve backend den alınan veriler ile oluşturulması sağlanacak
-    def arac_karti_ekle(self, satir, sutun, marka, model, plaka, fiyat):
-        araba = araba_kart(marka=marka, model=model, plaka=plaka, fiyat=fiyat)
+    def arac_karti_ekle(self, satir, sutun, marka, model, plaka, fiyat, id):
+        araba = araba_kart(marka=marka, model=model, plaka=plaka, fiyat=fiyat, id=id)
         araba.buton_goruntule.clicked.connect(self.arac_kart_tiklanma)
         self.izgara_layout_araclar.addWidget(araba)
 
-    # herhangi bir arac_kart nesnesinde görüntüleme butonuna basıldığında bu foksiyon ile o arabanın araba_sayfasına bilgilerini göndererek daha detaylı bir ekrana geçilmesini sağlaaycak.
     def arac_kart_tiklanma(self):
         self.stack.removeWidget(self.page2)
         self.page2.deleteLater()
@@ -189,8 +195,6 @@ class Ui_Dialog(object):
         page2_layout.setContentsMargins(0, 0, 0, 0)
 
         araba_bilgi = AracDetayWidget()
-
-        # Araç bilgilerini güncelle
         araba_bilgi.arac_bilgilerini_guncelle(
             marka="Tesla",
             model="Model 3",
@@ -198,8 +202,6 @@ class Ui_Dialog(object):
             ucret="2.500",
             durum=True
         )
-
-        # Geri dön sinyali
         araba_bilgi.geri_don_sinyali.connect(self.anasayfaya_don)
 
         page2_layout.addWidget(araba_bilgi)
@@ -209,9 +211,7 @@ class Ui_Dialog(object):
     def anasayfaya_don(self):
         self.stack.setCurrentWidget(self.page1)
 
-    # giris yap butonuna basıldığında login alanlarının boş olup olmadığını ve geçerli mail olup olmadığını kontrol ediyor (kontrol etmesi kolay olsun diye şimdilik yorum satırı mail turu)
     def giris_yap_baglanti(self):
-        mail_turleri = ["@gmail.com", "@hotmail.com", "@outlook.com"]
         if not self.giris_ekran.mail_giris.text().strip():
             QMessageBox.warning(
                 self.giris_ekran,
@@ -224,20 +224,9 @@ class Ui_Dialog(object):
                 "Giriş Hatası",
                 "Lütfen şifre alanını doldurunuz."
             )
-        #elif not any(self.giris_ekran.mail_giris.text().strip().endswith(tur) for tur in mail_turleri):
-        #    QMessageBox.warning(
-        #        self.giris_ekran,
-        #        "Giriş Hatası",
-        #        "Lütfen Geçerli bir e-posta giriniz."
-        #    )
         else:
-            # burda uygulama classındaki kullanicileri kontrol ederek bir eşleşmeye bakar eğer varsa diğer ekrana geçirir
             self.ana_stack.setCurrentWidget(self.ana_ekran)
-
-            # Mail'i üst bara yaz
             self.etiket_mail.setText(self.giris_ekran.mail_giris.text())
-
-            # eğer eşleleşme olmazsa tekrar bir mesaj bloğu ile şifre veya mail hatalı uyarısı atacağız
 
     def retranslateUi(self, Dialog):
         Dialog.setWindowTitle("Araç Kiralama Paneli")

@@ -4,11 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="17303a65-b033-43c3-a142-3287c413f33e" name="Changes" comment="aktifkiralar, arac_yonetim, aracduzenle, aracekle,gecmiskiralar, raporlar arayüzü eklendi">
+    <list default="true" id="17303a65-b033-43c3-a142-3287c413f33e" name="Changes" comment="profilaracduzenle eklendı, anasayfa ve profilsayfası arası baglantı kuruldu ve tum profildeki (soldaki menu butonları) calısır hale getirildi">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/anasayfa.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/anasayfa.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/profilsayfası.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/profilsayfası.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/raporlar.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/raporlar.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -156,7 +155,7 @@
       <updated>1764754831880</updated>
       <workItem from="1766331938413" duration="9364000" />
       <workItem from="1766486478744" duration="1362000" />
-      <workItem from="1766488811683" duration="3574000" />
+      <workItem from="1766488811683" duration="4270000" />
     </task>
     <task id="LOCAL-00001" summary="arababilgi.py geri don butonu eklendi(işlevsel durumda), Anasayfadan profil sayfasına gecisler eklendi, mail girerken mail turunu kontrol ediyor (Bitene kadar kolaylık olsun diye yorum satırı seklince)">
       <option name="closed" value="true" />
@@ -174,7 +173,15 @@
       <option name="project" value="LOCAL" />
       <updated>1766347931894</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="profilaracduzenle eklendı, anasayfa ve profilsayfası arası baglantı kuruldu ve tum profildeki (soldaki menu butonları) calısır hale getirildi">
+      <option name="closed" value="true" />
+      <created>1766493234675</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1766493234675</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -183,7 +190,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="arababilgi.py geri don butonu eklendi(işlevsel durumda), Anasayfadan profil sayfasına gecisler eklendi, mail girerken mail turunu kontrol ediyor (Bitene kadar kolaylık olsun diye yorum satırı seklince)" />
     <MESSAGE value="aktifkiralar, arac_yonetim, aracduzenle, aracekle,gecmiskiralar, raporlar arayüzü eklendi" />
-    <option name="LAST_COMMIT_MESSAGE" value="aktifkiralar, arac_yonetim, aracduzenle, aracekle,gecmiskiralar, raporlar arayüzü eklendi" />
+    <MESSAGE value="profilaracduzenle eklendı, anasayfa ve profilsayfası arası baglantı kuruldu ve tum profildeki (soldaki menu butonları) calısır hale getirildi" />
+    <option name="LAST_COMMIT_MESSAGE" value="profilaracduzenle eklendı, anasayfa ve profilsayfası arası baglantı kuruldu ve tum profildeki (soldaki menu butonları) calısır hale getirildi" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/AracKiralamaUygulamasi$aktifkiralar.coverage" NAME="aktifkiralar Coverage Results" MODIFIED="1766347154718" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
@@ -198,7 +206,7 @@
     <SUITE FILE_PATH="coverage/AracKiralamaUygulamasi$araba_kart.coverage" NAME="araba_kart Coverage Results" MODIFIED="1765983789098" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
     <SUITE FILE_PATH="coverage/AracKiralamaUygulamasi$gecmiskiralar.coverage" NAME="gecmiskiralar Coverage Results" MODIFIED="1766489045646" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
     <SUITE FILE_PATH="coverage/AracKiralamaUygulamasi$kayitol.coverage" NAME="kayitol Coverage Results" MODIFIED="1766052491757" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
-    <SUITE FILE_PATH="coverage/AracKiralamaUygulamasi$main.coverage" NAME="main Coverage Results" MODIFIED="1766493060001" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/AracKiralamaUygulamasi$main.coverage" NAME="main Coverage Results" MODIFIED="1766493690710" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/AracKiralamaUygulamasi$profilaracduzenle.coverage" NAME="profilaracduzenle Coverage Results" MODIFIED="1766489279332" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
     <SUITE FILE_PATH="coverage/AracKiralamaUygulamasi$deneme.coverage" NAME="deneme Coverage Results" MODIFIED="1765955977966" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/AracKiralamaUygulamasi$giris.coverage" NAME="giris Coverage Results" MODIFIED="1765966759141" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

@@ -4,8 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="17303a65-b033-43c3-a142-3287c413f33e" name="Changes" comment="arababilgi.py geri don butonu eklendi(işlevsel durumda), Anasayfadan profil sayfasına gecisler eklendi, mail girerken mail turunu kontrol ediyor (Bitene kadar kolaylık olsun diye yorum satırı seklince)">
+    <list default="true" id="17303a65-b033-43c3-a142-3287c413f33e" name="Changes" comment="aktifkiralar, arac_yonetim, aracduzenle, aracekle,gecmiskiralar, raporlar arayüzü eklendi">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/anasayfa.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/anasayfa.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/profilsayfası.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/profilsayfası.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/raporlar.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/raporlar.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,18 +26,18 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="UPDATE_TYPE" value="REBASE" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "ekinergenn"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;ekinergenn&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/ekinergenn/AracKiralamaUygulamasi.git",
-    "accountId": "99d0e62e-fc5f-4a44-8b8b-b30f016a4842"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/ekinergenn/AracKiralamaUygulamasi.git&quot;,
+    &quot;accountId&quot;: &quot;99d0e62e-fc5f-4a44-8b8b-b30f016a4842&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 4
 }</component>
@@ -46,32 +49,33 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.aktifkiralar.executor": "Run",
-    "Python.anasayfa.executor": "Run",
-    "Python.arababilgi.executor": "Run",
-    "Python.arac_yonetim.executor": "Run",
-    "Python.aracduzenle.executor": "Run",
-    "Python.aracekle.executor": "Run",
-    "Python.gecmiskiralar.executor": "Run",
-    "Python.giris.executor": "Run",
-    "Python.kayitol.executor": "Run",
-    "Python.main.executor": "Run",
-    "Python.profilsayfası.executor": "Run",
-    "Python.raporlar.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "git-widget-placeholder": "main",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.aktifkiralar.executor&quot;: &quot;Run&quot;,
+    &quot;Python.anasayfa.executor&quot;: &quot;Run&quot;,
+    &quot;Python.arababilgi.executor&quot;: &quot;Run&quot;,
+    &quot;Python.arac_yonetim.executor&quot;: &quot;Run&quot;,
+    &quot;Python.aracduzenle.executor&quot;: &quot;Run&quot;,
+    &quot;Python.aracekle.executor&quot;: &quot;Run&quot;,
+    &quot;Python.gecmiskiralar.executor&quot;: &quot;Run&quot;,
+    &quot;Python.giris.executor&quot;: &quot;Run&quot;,
+    &quot;Python.kayitol.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.profilaracduzenle.executor&quot;: &quot;Run&quot;,
+    &quot;Python.profilsayfası.executor&quot;: &quot;Run&quot;,
+    &quot;Python.raporlar.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\ssbur\PycharmProjects\AracKiralamaUygulamasi\information" />
@@ -79,6 +83,60 @@
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\ssbur\PycharmProjects\AracKiralamaUygulamasi\src" />
     </key>
+  </component>
+  <component name="RunManager" selected="Python.main">
+    <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="AracKiralamaUygulamasi" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="profilsayfası" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="AracKiralamaUygulamasi" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/profilsayfası.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.main" />
+        <item itemvalue="Python.profilsayfası" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -96,7 +154,9 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1764754831880</updated>
-      <workItem from="1766331938413" duration="8962000" />
+      <workItem from="1766331938413" duration="9364000" />
+      <workItem from="1766486478744" duration="1362000" />
+      <workItem from="1766488811683" duration="3574000" />
     </task>
     <task id="LOCAL-00001" summary="arababilgi.py geri don butonu eklendi(işlevsel durumda), Anasayfadan profil sayfasına gecisler eklendi, mail girerken mail turunu kontrol ediyor (Bitene kadar kolaylık olsun diye yorum satırı seklince)">
       <option name="closed" value="true" />
@@ -106,7 +166,15 @@
       <option name="project" value="LOCAL" />
       <updated>1766337492876</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="aktifkiralar, arac_yonetim, aracduzenle, aracekle,gecmiskiralar, raporlar arayüzü eklendi">
+      <option name="closed" value="true" />
+      <created>1766347931894</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1766347931894</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -114,22 +182,24 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="arababilgi.py geri don butonu eklendi(işlevsel durumda), Anasayfadan profil sayfasına gecisler eklendi, mail girerken mail turunu kontrol ediyor (Bitene kadar kolaylık olsun diye yorum satırı seklince)" />
-    <option name="LAST_COMMIT_MESSAGE" value="arababilgi.py geri don butonu eklendi(işlevsel durumda), Anasayfadan profil sayfasına gecisler eklendi, mail girerken mail turunu kontrol ediyor (Bitene kadar kolaylık olsun diye yorum satırı seklince)" />
+    <MESSAGE value="aktifkiralar, arac_yonetim, aracduzenle, aracekle,gecmiskiralar, raporlar arayüzü eklendi" />
+    <option name="LAST_COMMIT_MESSAGE" value="aktifkiralar, arac_yonetim, aracduzenle, aracekle,gecmiskiralar, raporlar arayüzü eklendi" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/AracKiralamaUygulamasi$aktifkiralar.coverage" NAME="aktifkiralar Coverage Results" MODIFIED="1766347154718" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
     <SUITE FILE_PATH="coverage/AracKiralamaUygulamasi$arac_yonetim.coverage" NAME="arac_yonetim Coverage Results" MODIFIED="1766346366725" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
-    <SUITE FILE_PATH="coverage/AracKiralamaUygulamasi$raporlar.coverage" NAME="raporlar Coverage Results" MODIFIED="1766347677243" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
+    <SUITE FILE_PATH="coverage/AracKiralamaUygulamasi$raporlar.coverage" NAME="raporlar Coverage Results" MODIFIED="1766487893046" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
     <SUITE FILE_PATH="coverage/AracKiralamaUygulamasi$aracekle.coverage" NAME="aracekle Coverage Results" MODIFIED="1766346359310" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
-    <SUITE FILE_PATH="coverage/AracKiralamaUygulamasi$profilsayfas.coverage" NAME="profilsayfası Coverage Results" MODIFIED="1766052498815" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
+    <SUITE FILE_PATH="coverage/AracKiralamaUygulamasi$profilsayfas.coverage" NAME="profilsayfası Coverage Results" MODIFIED="1766492974128" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
     <SUITE FILE_PATH="coverage/AracKiralamaUygulamasi$anasayfa.coverage" NAME="anasayfa Coverage Results" MODIFIED="1766332287381" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
     <SUITE FILE_PATH="coverage/AracKiralamaUygulamasi$arababilgi.coverage" NAME="arababilgi Coverage Results" MODIFIED="1766052482210" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
     <SUITE FILE_PATH="coverage/AracKiralamaUygulamasi$deneme2.coverage" NAME="deneme2 Coverage Results" MODIFIED="1765955803384" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/AracKiralamaUygulamasi$aracduzenle.coverage" NAME="aracduzenle Coverage Results" MODIFIED="1766346355339" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
     <SUITE FILE_PATH="coverage/AracKiralamaUygulamasi$araba_kart.coverage" NAME="araba_kart Coverage Results" MODIFIED="1765983789098" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
-    <SUITE FILE_PATH="coverage/AracKiralamaUygulamasi$gecmiskiralar.coverage" NAME="gecmiskiralar Coverage Results" MODIFIED="1766347437456" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
+    <SUITE FILE_PATH="coverage/AracKiralamaUygulamasi$gecmiskiralar.coverage" NAME="gecmiskiralar Coverage Results" MODIFIED="1766489045646" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
     <SUITE FILE_PATH="coverage/AracKiralamaUygulamasi$kayitol.coverage" NAME="kayitol Coverage Results" MODIFIED="1766052491757" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
-    <SUITE FILE_PATH="coverage/AracKiralamaUygulamasi$main.coverage" NAME="main Coverage Results" MODIFIED="1766345612897" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/AracKiralamaUygulamasi$main.coverage" NAME="main Coverage Results" MODIFIED="1766493060001" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/AracKiralamaUygulamasi$profilaracduzenle.coverage" NAME="profilaracduzenle Coverage Results" MODIFIED="1766489279332" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
     <SUITE FILE_PATH="coverage/AracKiralamaUygulamasi$deneme.coverage" NAME="deneme Coverage Results" MODIFIED="1765955977966" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/AracKiralamaUygulamasi$giris.coverage" NAME="giris Coverage Results" MODIFIED="1765966759141" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>

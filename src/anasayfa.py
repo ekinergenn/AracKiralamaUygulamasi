@@ -1,37 +1,26 @@
 import sys
 import os  # Fotoğraflara ulaşmak için
-from PySide6.QtCore import (QCoreApplication, QSize, QRect, Qt, QMetaObject,QDate)
+from PySide6.QtCore import (QCoreApplication, QSize, QRect, Qt, QMetaObject)
 from PySide6.QtGui import (QColor, QFont, QPixmap)
 from PySide6.QtWidgets import (QApplication, QComboBox, QDialog, QGridLayout,
                                QHBoxLayout, QLabel, QLineEdit, QPushButton,
-                               QScrollArea, QVBoxLayout, QWidget, QFrame,QStackedWidget,QSizePolicy,QMessageBox)
+                               QScrollArea, QVBoxLayout, QWidget, QFrame, QStackedWidget, QSizePolicy, QMessageBox)
 
 from src.araba_kart import araba_kart
 from src.arababilgi import AracDetayWidget
-from src.flowlayout import FlowLayout,ClickableLabel
+from src.flowlayout import FlowLayout
 from src.giris import ModernLoginDialog
 from src.kayitol import RegisterDialog
-from src.profilsayfası import ProfilSayfasiWidget
+from src.profilsayfası import Ui_ProfilSekmesi
 
-from backend.uygulama import uygulama
-from datetime import date
-from backend.kiralama import kiralama
-
-#Python dosyasının adresi
+# Python dosyasının adresi
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-db_path = os.path.normpath(
-    os.path.join(BASE_DIR, "..", "database", "database.json")
-)
 
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
         if not Dialog.objectName():
             Dialog.setObjectName(u"Dialog")
-
-        self.app = uygulama(db_path)
-
-        # label a tıklanıp tıklanmadığını kontrol etmek içins
 
         self.ana_layout = QVBoxLayout(Dialog)
         self.ana_layout.setSpacing(0)
@@ -39,9 +28,8 @@ class Ui_Dialog(object):
 
         self.ana_stack = QStackedWidget()
         self.ana_ekran = QWidget()
-        self.giris_ekran = ModernLoginDialog()
+        self.giris_ekran = ModernLoginDialog(parent=self.ana_stack)
         self.kayitol_ekran = RegisterDialog()
-        self.profil_sayfasi_ekran = ProfilSayfasiWidget()
 
         Dialog.resize(900, 750)
         Dialog.setStyleSheet(u"background-color: #F8F9FA;")
@@ -49,18 +37,19 @@ class Ui_Dialog(object):
         self.ana_dikey_layout.setSpacing(20)
         self.ana_dikey_layout.setContentsMargins(0, 0, 0, 0)
 
-        #Üst Kısım
+        # Üst Kısım
         self.ust_bar_cerceve = QFrame(self.ana_ekran)
         self.ust_bar_cerceve.setStyleSheet(u"background-color: #2E3A59;")
         self.ust_yatay_layout = QHBoxLayout(self.ust_bar_cerceve)
         self.ust_yatay_layout.setContentsMargins(15, 10, 15, 10)
 
-        #PP
-        self.etiket_profil_resim = ClickableLabel(self.ust_bar_cerceve)
+        # PP
+        self.etiket_profil_resim = QLabel(self.ust_bar_cerceve)
         self.etiket_profil_resim.setFixedSize(50, 50)
-        self.etiket_profil_resim.setStyleSheet("border-radius: 25px; background-color: #4A5568; border: 2px solid white;")
-        #self.etiket_profil_resim.installEventFilter(self.filter)
-        #PP adresi
+        self.etiket_profil_resim.setStyleSheet(
+            "border-radius: 25px; background-color: #4A5568; border: 2px solid white;")
+
+        # PP adresi
         profile_path = os.path.join(BASE_DIR, "../icon/profilepp.png")
         if os.path.exists(profile_path):
             self.etiket_profil_resim.setPixmap(QPixmap(profile_path))
@@ -68,7 +57,7 @@ class Ui_Dialog(object):
         self.etiket_profil_resim.setScaledContents(True)
         self.ust_yatay_layout.addWidget(self.etiket_profil_resim)
 
-        #Mail kısmı
+        # Mail kısmı
         self.etiket_mail = QLabel(self.ust_bar_cerceve)
         self.etiket_mail.setText("ornek@gmail.com")
         self.etiket_mail.setStyleSheet("color: white; font-weight: bold; font-size: 14px; padding-left: 10px;")
@@ -76,14 +65,14 @@ class Ui_Dialog(object):
 
         self.ust_yatay_layout.addStretch()
 
-        #Arama
+        # Arama
         self.arama_satiri = QLineEdit(self.ust_bar_cerceve)
         self.arama_satiri.setPlaceholderText("Araç ara...")
         self.arama_satiri.setFixedWidth(250)
         self.arama_satiri.setStyleSheet("border-radius: 10px; padding: 8px; background-color: white; color: #2E3A59;")
         self.ust_yatay_layout.addWidget(self.arama_satiri)
 
-        #Filtrele ve Sırala
+        # Filtrele ve Sırala
         combo_stil = "background-color: #4A5568; color: white; border-radius: 8px; padding: 5px; min-width: 110px;"
         self.combo_sirala = QComboBox(self.ust_bar_cerceve)
         self.combo_sirala.addItems(["Fiyat: Artan", "Fiyat: Azalan"])
@@ -108,7 +97,7 @@ class Ui_Dialog(object):
 
         self.kaydirma_icerik_widget = QWidget()
         self.izgara_layout_araclar = FlowLayout(self.kaydirma_icerik_widget)
-        #self.izgara_layout_araclar.setSpacing(5)
+        # self.izgara_layout_araclar.setSpacing(5)
         self.izgara_layout_araclar.setContentsMargins(10, 0, 10, 0)
         # self.izgara_layout_araclar.setAlignment(Qt.AlignTop | Qt.AlignLeft)
 
@@ -118,24 +107,15 @@ class Ui_Dialog(object):
         # )
 
         # Kartlar
-        # self.arac_karti_ekle(0, 0, "Tesla Model 3", "2023", "34 ABC 123", "2500 TL")
-        # self.arac_karti_ekle(0, 1, "BMW i4", "2024", "34 DEF 456", "3200 TL")
-        # self.arac_karti_ekle(1, 0, "Audi A4", "2022", "34 GHI 789", "1800 TL")
-        # self.arac_karti_ekle(1, 0, "Audi A4", "2022", "34 GHI 789", "1800 TL")
-        # self.arac_karti_ekle(1, 0, "Audi A4", "2022", "34 GHI 789", "1800 TL")
-        # self.arac_karti_ekle(1, 0, "Audi A4", "2022", "34 GHI 789", "1800 TL")
-        # self.arac_karti_ekle(1, 0, "Audi A4", "2022", "34 GHI 789", "1800 TL")
-        # self.arac_karti_ekle(1, 0, "Audi A4", "2022", "34 GHI 789", "1800 TL")
-        # self.arac_karti_ekle(1, 0, "Audi A4", "2022", "34 GHI 789", "1800 TL")
-
-        # arabalar araba nesnelerinden türetilecek
-        self.arabalar = []
-        for i in self.app.arabalar:
-            araba = araba_kart(marka=i.marka,model=i.model,plaka=i.plaka,fiyat=i.ucret,id=i.id)
-            araba.buton_goruntule.clicked.connect(lambda: self.arac_kart_tiklanma(self.app.araba_id_arama(i.id)))
-            self.izgara_layout_araclar.addWidget(araba)
-            self.arabalar.append(araba)
-
+        self.arac_karti_ekle(0, 0, "Tesla Model 3", "2023", "34 ABC 123", "2500 TL")
+        self.arac_karti_ekle(0, 1, "BMW i4", "2024", "34 DEF 456", "3200 TL")
+        self.arac_karti_ekle(1, 0, "Audi A4", "2022", "34 GHI 789", "1800 TL")
+        self.arac_karti_ekle(1, 0, "Audi A4", "2022", "34 GHI 789", "1800 TL")
+        self.arac_karti_ekle(1, 0, "Audi A4", "2022", "34 GHI 789", "1800 TL")
+        self.arac_karti_ekle(1, 0, "Audi A4", "2022", "34 GHI 789", "1800 TL")
+        self.arac_karti_ekle(1, 0, "Audi A4", "2022", "34 GHI 789", "1800 TL")
+        self.arac_karti_ekle(1, 0, "Audi A4", "2022", "34 GHI 789", "1800 TL")
+        self.arac_karti_ekle(1, 0, "Audi A4", "2022", "34 GHI 789", "1800 TL")
 
         self.kaydirma_alani.setWidget(self.kaydirma_icerik_widget)
 
@@ -154,10 +134,13 @@ class Ui_Dialog(object):
         self.stack.setCurrentIndex(0)
 
         # bu stack widget da 4 temel sayfa (login,register,main,profile) ekranları arasında geçişyapılmasını sağlıyor bu sayede sayfalar arasında geçiş yaparken hiç baştan yükleme veya nesne oluşturulmuyor var olan sayfalar arasında geçiş yapılıyor
+        self.profil_ekran_widget = QWidget()
+        self.profil_ui = Ui_ProfilSekmesi()
+        self.profil_ui.setupUi(self.profil_ekran_widget)
+        self.ana_stack.addWidget(self.profil_ekran_widget)
         self.ana_stack.addWidget(self.ana_ekran)
         self.ana_stack.addWidget(self.giris_ekran)
         self.ana_stack.addWidget(self.kayitol_ekran)
-        self.ana_stack.addWidget(self.profil_sayfasi_ekran)
 
         # bu ana_stack in sayfaları arasında geçiş yapmasını sağlıyor uygulama ilk açıldığında giris_ekranını yüklenmesi ayarlanmış
         self.ana_stack.setCurrentWidget(self.giris_ekran)
@@ -170,16 +153,34 @@ class Ui_Dialog(object):
 
         # bu kısımda click eventler var
         self.giris_ekran.buton_giris_yap.clicked.connect(self.giris_yap_baglanti)
-        self.giris_ekran.buton_kayit_ol.clicked.connect(self.kayit_ol_page_baglanti)
-        self.etiket_profil_resim.clicked.connect(self.profil_page_baglanti)
-        
+
+        # Profil resmi ve mail tıklanabilir yap
+        self.etiket_profil_resim.setCursor(Qt.PointingHandCursor)
+        self.etiket_mail.setCursor(Qt.PointingHandCursor)
+
+        # Tıklama olayları
+        self.etiket_profil_resim.mousePressEvent = self.profil_sayfasina_gec
+        self.etiket_mail.mousePressEvent = self.profil_sayfasina_gec
+
+        # Profil sayfasından ana sayfaya dönüş
+        self.profil_ui.buton_ana_sayfa.clicked.connect(lambda: self.ana_stack.setCurrentWidget(self.ana_ekran))
+
+    def profil_sayfasina_gec(self, event=None):
+        # Giriş yapan kullanıcının mailini profil sayfasına aktar
+        guncel_mail = self.etiket_mail.text()
+        self.profil_ui.etiket_kullanici_mail.setText(guncel_mail)
+
+        # Ekranı değiştir
+        self.ana_stack.setCurrentWidget(self.profil_ekran_widget)
 
     # araba_karların eklenmesi sağlanıyor aslında bunu burda yapmak yerine direkt nesne oluşturma ile yapıcam ve backend den alınan veriler ile oluşturulması sağlanacak
-
+    def arac_karti_ekle(self, satir, sutun, marka, model, plaka, fiyat):
+        araba = araba_kart(marka=marka, model=model, plaka=plaka, fiyat=fiyat)
+        araba.buton_goruntule.clicked.connect(self.arac_kart_tiklanma)
+        self.izgara_layout_araclar.addWidget(araba)
 
     # herhangi bir arac_kart nesnesinde görüntüleme butonuna basıldığında bu foksiyon ile o arabanın araba_sayfasına bilgilerini göndererek daha detaylı bir ekrana geçilmesini sağlaaycak.
-    def arac_kart_tiklanma(self,_araba):
-        # önce page2 deki bütün nesneleri aslında direkt kendisini siliyoruz ve sonrasında tekrar yeni bilgiler ile oluşturuyoruz
+    def arac_kart_tiklanma(self):
         self.stack.removeWidget(self.page2)
         self.page2.deleteLater()
 
@@ -187,97 +188,56 @@ class Ui_Dialog(object):
         page2_layout = QVBoxLayout(self.page2)
         page2_layout.setContentsMargins(0, 0, 0, 0)
 
-        self.araba_bilgi = AracDetayWidget(_araba)
-        self.araba_bilgi.ui.tarih_bitis.dateChanged.connect(self.araba_kiralama_gun_secimi)
-        self.araba_bilgi.ui.buton_kirala.clicked.connect(self.araba_kirala)
-        page2_layout.addWidget(self.araba_bilgi)
+        araba_bilgi = AracDetayWidget()
+
+        # Araç bilgilerini güncelle
+        araba_bilgi.arac_bilgilerini_guncelle(
+            marka="Tesla",
+            model="Model 3",
+            plaka="34 ABC 123",
+            ucret="2.500",
+            durum=True
+        )
+
+        # Geri dön sinyali
+        araba_bilgi.geri_don_sinyali.connect(self.anasayfaya_don)
+
+        page2_layout.addWidget(araba_bilgi)
         self.stack.addWidget(self.page2)
         self.stack.setCurrentWidget(self.page2)
-        
-    def kayit_ol_page_baglanti(self):
-        self.ana_stack.setCurrentWidget(self.kayitol_ekran)
 
-    def profil_page_baglanti(self):
-        self.profil_sayfasi_ekran.ui.etiket_kullanici_mail.setText(self.app.aktif_hesap.eposta)
-        self.ana_stack.setCurrentWidget(self.profil_sayfasi_ekran)
+    def anasayfaya_don(self):
+        self.stack.setCurrentWidget(self.page1)
 
-
-    def araba_kiralama_gun_secimi(self,qdate):
-        date1 = self.araba_bilgi.ui.tarih_baslangic.date().toPython()
-        date2 = qdate.toPython()
-        gun = (date2 - date1).days
-        
-        if (gun > 0):
-            self.araba_bilgi.ui.etiket_toplam_ucret.setText("Toplam: "+ str(self.araba_bilgi.ui.araba.ucret * gun) + " TL")
-        else:
-            QMessageBox.warning(
-                self.page2,
-                "Giris Hatası",
-                "başlangıç günü ile bitiş günü arasında en az 1 gün olmalı"
-                
-            )
-            self.araba_bilgi.ui.tarih_bitis.setDate(QDate.currentDate().addDays(1))
-            self.araba_bilgi.ui.etiket_toplam_ucret.setText("Toplam: 0 TL")
-
-
-    def araba_kirala(self):
-        date1 = self.araba_bilgi.ui.tarih_baslangic.date().toPython()
-        date2 = self.araba_bilgi.ui.tarih_bitis.date().toPython()
-        
-        if (not self.araba_bilgi.ui.araba.durum):
-            QMessageBox.information(
-                self.page2,
-                "araba kiralama",
-                "arabayi kiraladınız"
-            ) 
-            self.app.kiralamalar.append(kiralama(self.app.aktif_hesap.id,self.araba_bilgi.ui.araba.id,date1,date2,((date2-date1).days) * self.araba_bilgi.ui.araba.ucret,len(self.app.kiralamalar),self.app))
-            self.app.database_guncelleme()
-        else:
-            QMessageBox.warning(
-                self.page2,
-                "araba kiralama",
-                "bu araba kirada kiralanamaz"
-            )
-
-
-    # giris yap butonuna basıldığında login alanlarının boş olup olmadığını kontrol ediyor
+    # giris yap butonuna basıldığında login alanlarının boş olup olmadığını ve geçerli mail olup olmadığını kontrol ediyor (kontrol etmesi kolay olsun diye şimdilik yorum satırı mail turu)
     def giris_yap_baglanti(self):
-        eposta = self.giris_ekran.mail_giris.text()
-        sifre = self.giris_ekran.sifre_giris.text()
-        if not eposta.split():
+        mail_turleri = ["@gmail.com", "@hotmail.com", "@outlook.com"]
+        if not self.giris_ekran.mail_giris.text().strip():
             QMessageBox.warning(
                 self.giris_ekran,
-                "Giris Hatası",
-                "Lütfen gerekli alani doldurunuz."
+                "Giriş Hatası",
+                "Lütfen e-posta alanını doldurunuz."
             )
-        elif not sifre.split():
+        elif not self.giris_ekran.sifre_giris.text().strip():
             QMessageBox.warning(
                 self.giris_ekran,
-                "Giris Hatası",
-                "Lütfen gerekli alani doldurunuz."
+                "Giriş Hatası",
+                "Lütfen şifre alanını doldurunuz."
             )
+        #elif not any(self.giris_ekran.mail_giris.text().strip().endswith(tur) for tur in mail_turleri):
+        #    QMessageBox.warning(
+        #        self.giris_ekran,
+        #        "Giriş Hatası",
+        #        "Lütfen Geçerli bir e-posta giriniz."
+        #    )
         else:
-            kisi = self.app.kullanici_eposta_arama(eposta)
-            admin = self.app.admin_eposta_arama(eposta)
-
-            if (kisi and kisi.sifre == sifre) or (admin and admin.sifre == sifre):
-                self.app.aktif_hesap = kisi
-                self.etiket_mail.setText(kisi.eposta)
-                self.ana_stack.setCurrentWidget(self.ana_ekran)
-            else:
-                QMessageBox.warning(
-                self.giris_ekran,
-                "Giris Hatası",
-                "boyle bir hesap bulunamadi"
-                )
-
             # burda uygulama classındaki kullanicileri kontrol ederek bir eşleşmeye bakar eğer varsa diğer ekrana geçirir
-            
+            self.ana_stack.setCurrentWidget(self.ana_ekran)
+
+            # Mail'i üst bara yaz
+            self.etiket_mail.setText(self.giris_ekran.mail_giris.text())
 
             # eğer eşleleşme olmazsa tekrar bir mesaj bloğu ile şifre veya mail hatalı uyarısı atacağız
-
-
-
 
     def retranslateUi(self, Dialog):
         Dialog.setWindowTitle("Araç Kiralama Paneli")

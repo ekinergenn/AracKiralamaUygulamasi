@@ -4,7 +4,7 @@ from PySide6.QtCore import (QCoreApplication, QMetaObject, QSize, Qt, Signal)
 from PySide6.QtGui import (QColor, QFont, QPixmap)
 from PySide6.QtWidgets import (QApplication, QDialog, QGridLayout, QLabel,
                                QPushButton, QVBoxLayout, QWidget, QFrame,
-                               QHBoxLayout, QLineEdit, QComboBox)
+                               QHBoxLayout, QLineEdit, QComboBox, QMessageBox)
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -73,28 +73,28 @@ class Ui_AracDuzenleDialog(object):
             }
         """
 
-        #marka (simdilik ornek, veri okuyup mevcut verileri yazacak.)
+        
         self.form_layout.addWidget(QLabel("Marka:"))
         self.input_marka = QLineEdit()
-        self.input_marka.setText("Tesla")  # Mevcut marka
+        
         self.form_layout.addWidget(self.input_marka)
 
         #model
         self.form_layout.addWidget(QLabel("Model:"))
         self.input_model = QLineEdit()
-        self.input_model.setText("Model 3")  # Mevcut model
+        
         self.form_layout.addWidget(self.input_model)
 
         #plaka
         self.form_layout.addWidget(QLabel("Plaka:"))
         self.input_plaka = QLineEdit()
-        self.input_plaka.setText("34 ABC 123")  # Mevcut plaka
+        
         self.form_layout.addWidget(self.input_plaka)
 
         #ücret
         self.form_layout.addWidget(QLabel("Günlük Ücret (TL):"))
         self.input_ucret = QLineEdit()
-        self.input_ucret.setText("2500")  # Mevcut ücret
+        #self.input_ucret.setText("2500")  # Mevcut ücret
         self.form_layout.addWidget(self.input_ucret)
 
         #durum
@@ -149,12 +149,58 @@ class Ui_AracDuzenleDialog(object):
 
         self.ana_izgara_layout.addWidget(self.cerceve_aksiyon, 1, 0, 1, 2)
 
+class AracDuzenleDialog(QDialog):
+    veri_gonder = Signal(object)
+    sil_ = Signal(object)
+    def __init__(self,arac,parent=None):
+        self.arac = arac
+        super().__init__(parent)
+        self.ui = Ui_AracDuzenleDialog()
+        self.ui.setupUi(self)
+        self.ui.input_marka.setText(self.arac.marka)
+        self.ui.input_model.setText(self.arac.model)
+        self.ui.input_plaka.setText(self.arac.plaka)
+        self.ui.input_ucret.setText(str(self.arac.ucret))
 
-#main simdilik var bagli olmadıgı icin
-if __name__ == "__main__":
-    app = QApplication(sys.argv)
-    pencere = QDialog()
-    ui = Ui_AracDuzenleDialog()
-    ui.setupUi(pencere)
-    pencere.show()
-    sys.exit(app.exec())
+        self.ui.buton_kaydet.clicked.connect(self.kaydet)
+        self.ui.buton_geri.clicked.connect(self.close)
+        self.ui.buton_sil.clicked.connect(self.sil)
+
+    def sil(self):
+        self.sil_.emit(self.arac.id)
+
+    def kaydet(self):
+        marka = self.ui.input_marka.text()
+        model = self.ui.input_model.text()
+        plaka = self.ui.input_plaka.text()
+
+        parcalar = plaka.split(" ")
+
+        if len(parcalar) == 3:
+            sehir = parcalar[0]
+            harf = parcalar[1]
+            sayi = parcalar[2]
+
+            if sehir.isdigit() and harf.isalpha() and sayi.isdigit():
+                print("plaka formatı dogru")
+            else:
+                QMessageBox.warning(self, "Plaka Hatası", "Plaka formatını doğru giriniz.")
+                return
+        else:
+            QMessageBox.warning(self, "Plaka Hatası", "Plaka formatını doğru giriniz.")
+            return
+
+        try:
+            ucret = float(self.ui.input_ucret.text())
+        except ValueError:
+            QMessageBox.warning(self, "Ücret Hatası", "Ücret sayı olmalı.")
+            return
+        if not all([marka, model, plaka, ucret]):
+            QMessageBox.warning(self, "Araç Ekleme Hatası", "Lütfen tüm alanları doldurunuz.")
+            return
+        durum = bool(False if self.ui.combo_durum.currentText()  == "Müsait" else True)
+        veri = [marka,model,plaka,ucret,durum,self.arac.id]
+
+
+        self.veri_gonder.emit(veri)
+        self.accept()

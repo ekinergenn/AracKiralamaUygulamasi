@@ -5,28 +5,30 @@ from backend.kiralama import kiralama
 from backend.admin import admin
 
 class uygulama:
-    def __init__(self,dosya):
+    def __init__(self, dosya):
         self.kullanicilar = []
         self.kiralamalar = []
         self.adminler = []
         self.arabalar = []
         self.my_database = database(dosya)
-        self.aktif_hesap = None
+        self.aktif_hesap = admin("","","","",-1) 
+        self.admin_bool = False
         
         data = self.my_database.verileri_oku()
         
+        for x in data["arabalar"]:
+            obj_araba = araba.from_dict(x)
+            obj_araba.durum = False 
+            self.arabalar.append(obj_araba)
+
+        
         for x in data["kullanicilar"]:
             self.kullanicilar.append(kullanici.from_dict(x))
-
-        for x in data["arabalar"]:
-            self.arabalar.append(araba.from_dict(x))
-
         for x in data["adminler"]:
             self.adminler.append(admin.from_dict(x))
 
         for x in data["kiralamalar"]:
-            self.kiralamalar.append(kiralama.from_dict(x,self))
-
+            self.kiralamalar.append(kiralama.from_dict(x, self))
 
     def database_guncelleme(self):
         data = {
@@ -91,5 +93,19 @@ class uygulama:
             if (x.id == id):
                 return x
         return None
+    
+    def araba_sahip_arama(self,id:int)-> admin:
+        for x in self.adminler:
+            for arac in x.sahip_arabalar:
+                if arac == id:
+                    return x
+        return None
 
+    def araba_sil(self,id):
+        silinecek = self.araba_id_arama(id)
+        self.aktif_hesap.sahip_arabalar.remove(id)
+        self.arabalar.remove(silinecek)
 
+    def araba_ekle(self,arac):
+        self.aktif_hesap.sahip_arabalar.append(arac.id)
+        self.arabalar.append(arac)

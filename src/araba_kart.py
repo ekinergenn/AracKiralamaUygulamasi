@@ -1,10 +1,9 @@
-import sys
-import os  #Fotoğraflara ulaşmak için
-from PySide6.QtCore import (QCoreApplication, QSize, QRect, Qt, QMetaObject,Signal)
-from PySide6.QtGui import (QColor, QFont, QPixmap)
-from PySide6.QtWidgets import (QApplication, QComboBox, QDialog, QGridLayout,
-                               QHBoxLayout, QLabel, QLineEdit, QPushButton,
-                               QScrollArea, QVBoxLayout, QWidget, QFrame)
+import os
+from PySide6.QtCore import (Qt)
+from PySide6.QtGui import (QPixmap)
+from PySide6.QtWidgets import (
+                               QHBoxLayout, QLabel, QPushButton,
+                                QVBoxLayout, QFrame)
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 

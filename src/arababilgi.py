@@ -9,8 +9,9 @@ from PySide6.QtWidgets import (QApplication, QDialog, QGridLayout, QLabel,
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 class Ui_AracDetayDialog(object):
-    def __init__(self,araba):
+    def __init__(self,araba,app):
         self.araba = araba
+        self.app = app
         
     def setupUi(self, AracDetayDialog):
         if not AracDetayDialog.objectName():
@@ -32,9 +33,9 @@ class Ui_AracDetayDialog(object):
         self.etiket_arac_resim.setFixedSize(400, 300)
         self.etiket_arac_resim.setStyleSheet(u"border: none;")
 
-        resim_yolu = os.path.join(BASE_DIR, "icon", "caricon.jpg")
-        if os.path.exists(resim_yolu):
-            self.etiket_arac_resim.setPixmap(QPixmap(resim_yolu))
+        car_path = os.path.join(BASE_DIR, "../icon/caricon.jpg")
+        if os.path.exists(car_path):
+            self.etiket_arac_resim.setPixmap(QPixmap(car_path))
 
         self.etiket_arac_resim.setScaledContents(True)
         self.resim_layout.addWidget(self.etiket_arac_resim)
@@ -49,12 +50,13 @@ class Ui_AracDetayDialog(object):
 
         baslik_font = QFont("Segoe UI", 11, QFont.Bold)
 
-        self.etiket_marka = QLabel(self.araba.marka)
-        self.etiket_model = QLabel(self.araba.model)
-        self.etiket_plaka = QLabel(self.araba.plaka)
+        self.etiket_marka = QLabel("Marka: " + self.araba.marka)
+        self.etiket_model = QLabel("Model: " + self.araba.model)
+        self.etiket_plaka = QLabel("Plaka: " + self.araba.plaka)
         self.etiket_ucret = QLabel("Günlük Ücret: " + str(self.araba.ucret) + " TL")
+        print(self.araba.durum)
         self.etiket_durum = QLabel("Durum: " +("Musait" if not self.araba.durum else "Kirada"))
-        self.etiket_kiralayan = QLabel("Kiralayan: " + "-")
+        self.etiket_kiralayan = QLabel("Kiralayan: " + ("-" if not self.araba.durum else self.app.araba_sahip_arama(self.araba.id).isim))
 
         bilgi_etiketleri = [self.etiket_marka, self.etiket_model, self.etiket_plaka,
                             self.etiket_ucret, self.etiket_durum, self.etiket_kiralayan]
@@ -129,6 +131,7 @@ class Ui_AracDetayDialog(object):
 
         # Başlangıç Tarihi
         self.v_layout_baslangic = QVBoxLayout()
+        self.v_layout_baslangic.addStretch()
         self.v_layout_baslangic.addWidget(
             QLabel("Başlangıç Tarihi", styleSheet="color: #4A5568; font-weight: bold; border: none;"))
         self.tarih_baslangic = QDateEdit()
@@ -136,9 +139,11 @@ class Ui_AracDetayDialog(object):
         self.tarih_baslangic.setDate(QDate.currentDate())
         self.tarih_baslangic.setStyleSheet(tarih_stil)
         self.v_layout_baslangic.addWidget(self.tarih_baslangic)
+        self.v_layout_baslangic.addStretch()
 
         # Bitiş Tarihi
         self.v_layout_bitis = QVBoxLayout()
+        self.v_layout_bitis.addStretch()
         self.v_layout_bitis.addWidget(
             QLabel("Bitiş Tarihi", styleSheet="color: #4A5568; font-weight: bold; border: none;"))
         self.tarih_bitis = QDateEdit()
@@ -146,10 +151,11 @@ class Ui_AracDetayDialog(object):
         self.tarih_bitis.setDate(QDate.currentDate().addDays(1))
         self.tarih_bitis.setStyleSheet(tarih_stil)
         self.v_layout_bitis.addWidget(self.tarih_bitis)
+        self.v_layout_bitis.addStretch()
 
         # Ücret ve Buton Alanı
         self.v_layout_onay = QVBoxLayout()
-        self.v_layout_onay.setSpacing(10)
+        self.v_layout_onay.addStretch()
 
         self.etiket_toplam_ucret = QLabel("Toplam: 2.500 TL")
         self.etiket_toplam_ucret.setStyleSheet("font-size: 16px; color: #2E3A59; font-weight: bold; border: none;")
@@ -186,9 +192,26 @@ class Ui_AracDetayDialog(object):
             }
         """)
 
+        self.buton_iade = QPushButton("İade Et")
+        self.buton_iade.setCursor(Qt.PointingHandCursor)
+        self.buton_iade.setStyleSheet(u"""
+                   QPushButton {
+                       background-color: red;
+                       color: white;
+                       border-radius: 8px;
+                       padding: 12px 25px;
+                       font-weight: bold;
+                       font-size: 14px;
+                   }
+                   QPushButton:hover { 
+                       background-color: #4A5568; 
+                   }
+               """)
+
         self.v_layout_onay.addWidget(self.buton_geri_don)
         self.v_layout_onay.addWidget(self.etiket_toplam_ucret)
         self.v_layout_onay.addWidget(self.buton_kirala)
+        self.v_layout_onay.addWidget(self.buton_iade)
         self.v_layout_onay.addStretch()
 
         self.islem_yatay_layout.addLayout(self.v_layout_baslangic)
@@ -207,9 +230,9 @@ class Ui_AracDetayDialog(object):
 class AracDetayWidget(QWidget):
     geri_don_sinyali = Signal()
 
-    def __init__(self, araba,parent=None):
+    def __init__(self, araba,app,parent=None):
         super().__init__(parent)
-        self.ui = Ui_AracDetayDialog(araba)
+        self.ui = Ui_AracDetayDialog(araba,app)
         self.ui.setupUi(self)
 
         # geri don butonu islevsel
@@ -219,12 +242,14 @@ class AracDetayWidget(QWidget):
         # sinyal gonder (anasayfa.py bu sinyali dinleyecek)
         self.geri_don_sinyali.emit()
 
-    def arac_bilgilerini_guncelle(self, marka, model, plaka, ucret, durum=True):
+
+
+    def arac_bilgilerini_guncelle(self, marka, model, plaka, ucret, durum):
         self.ui.etiket_marka.setText(f"Marka: {marka}")
         self.ui.etiket_model.setText(f"Model: {model}")
         self.ui.etiket_plaka.setText(f"Plaka: {plaka}")
         self.ui.etiket_ucret.setText(f"Günlük Ücret: {ucret} TL")
 
-        durum_metni = "Müsait" if durum else "Kirada"
+        durum_metni = "Müsait" if not durum else "Kirada"
         self.ui.etiket_durum.setText(f"Durum: {durum_metni}")
         self.ui.etiket_toplam_ucret.setText(f"Toplam: {ucret} TL")

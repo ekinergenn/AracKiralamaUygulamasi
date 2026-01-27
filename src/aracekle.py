@@ -1,19 +1,20 @@
 import sys
 import os
-from PySide6.QtCore import (QCoreApplication, QMetaObject, QSize, Qt)
+from PySide6.QtCore import (QCoreApplication, QMetaObject, QSize, Qt,Signal)
 from PySide6.QtGui import (QColor, QFont, QPixmap)
 from PySide6.QtWidgets import (QApplication, QDialog, QGridLayout, QLabel,
                                QPushButton, QVBoxLayout, QWidget, QFrame,
-                               QHBoxLayout, QLineEdit, QComboBox)
+                               QHBoxLayout, QLineEdit, QComboBox, QMessageBox)
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+from backend.araba import araba
 
 
 class Ui_AracEkleDialog(object):
     def setupUi(self, AracEkleDialog):
         if not AracEkleDialog.objectName():
             AracEkleDialog.setObjectName(u"AracEkleDialog")
-
         AracEkleDialog.resize(850, 600)
         AracEkleDialog.setStyleSheet(u"background-color: #F8F9FA;")
 
@@ -80,7 +81,7 @@ class Ui_AracEkleDialog(object):
 
         self.form_layout.addWidget(QLabel("Model:"))
         self.input_model = QLineEdit()
-        self.input_model.setPlaceholderText("Örn: Model 3, i4...")
+        self.input_model.setPlaceholderText("Örn: 2022, 2023 ..")
         self.form_layout.addWidget(self.input_model)
 
         self.form_layout.addWidget(QLabel("Plaka:"))
@@ -95,7 +96,7 @@ class Ui_AracEkleDialog(object):
 
         self.form_layout.addWidget(QLabel("Başlangıç Durumu:"))
         self.combo_durum = QComboBox()
-        self.combo_durum.addItems(["Müsait", "Bakımda"])
+        self.combo_durum.addItems(["Müsait", "Kirada"])
         self.form_layout.addWidget(self.combo_durum)
 
         self.input_marka.setStyleSheet(bilesen_stili)
@@ -129,15 +130,55 @@ class Ui_AracEkleDialog(object):
         self.aksiyon_layout.addWidget(self.buton_iptal)
         self.aksiyon_layout.addStretch()
         self.aksiyon_layout.addWidget(self.buton_kaydet)
+        
+        
 
         self.ana_izgara_layout.addWidget(self.cerceve_aksiyon, 1, 0, 1, 2)
+    
 
 
-if __name__ == "__main__":
-    app = QApplication(sys.argv)
-    pencere = QDialog()
-    ui = Ui_AracEkleDialog()
-    ui.setupUi(pencere)
-    pencere.setWindowTitle("Yeni Araç Kaydı")
-    pencere.show()
-    sys.exit(app.exec())
+class AracEkleDialog(QDialog):
+    veri_gonder = Signal(object)
+    def __init__(self,parent=None):
+        super().__init__(parent)
+        self.ui = Ui_AracEkleDialog()
+        self.ui.setupUi(self)
+        self.ui.buton_kaydet.clicked.connect(self.kaydet)
+        self.ui.buton_iptal.clicked.connect(self.close)
+
+    def kaydet(self):
+        marka = self.ui.input_marka.text()
+        model = self.ui.input_model.text()
+        plaka = self.ui.input_plaka.text()
+        ucret = 0
+
+        parcalar = plaka.split(" ")
+
+        if len(parcalar) == 3:
+            sehir = parcalar[0]
+            harf = parcalar[1]
+            sayi = parcalar[2]
+
+            if sehir.isdigit() and harf.isalpha() and sayi.isdigit():
+                print("plaka formatı dogru")
+            else:
+                QMessageBox.warning(self, "Plaka Hatası", "Plaka formatını doğru giriniz.")
+                return
+        else:
+            QMessageBox.warning(self, "Plaka Hatası", "Plaka formatını doğru giriniz.")
+            return
+
+        try:
+            ucret = float(self.ui.input_ucret.text())
+        except ValueError:
+            QMessageBox.warning(self, "Ücret Hatası", "Ücret sayı olmalı.")
+            return
+        if not all([marka, model, plaka, ucret]):
+            QMessageBox.warning(self, "Araç Ekleme Hatası", "Lütfen tüm alanları doldurunuz.")
+            return
+
+        
+        durum = bool(False if self.ui.combo_durum.currentText()  == "Müsait" else True)
+        arac = araba(plaka,marka,model,ucret,durum,0)
+        self.veri_gonder.emit(arac)
+        self.accept()

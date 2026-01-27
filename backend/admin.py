@@ -38,9 +38,3 @@ class admin(kullanici):
         
         return veri
 
-    def araba_ekle(_araba:araba):
-        pass
-
-    def araba_sil(_araba:araba):
-        pass
-

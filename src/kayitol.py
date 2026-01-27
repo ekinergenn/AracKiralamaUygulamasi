@@ -1,11 +1,16 @@
 import sys
-from PySide6.QtCore import (QCoreApplication, QMetaObject, QRect, QSize, Qt)
+from PySide6.QtCore import (QCoreApplication, QMetaObject, QRect, QSize, Qt, QTimer, Signal)
 from PySide6.QtGui import (QFont, QIcon)
 from PySide6.QtWidgets import (QApplication, QDialog, QFrame, QGridLayout,
-                               QHBoxLayout, QLabel, QLineEdit, QPushButton, QSizePolicy, QVBoxLayout, QWidget)
+                               QHBoxLayout, QLabel, QLineEdit, QPushButton, QSizePolicy, QVBoxLayout, QWidget,
+                               QCheckBox)
+
+from src.giris import ModernLoginDialog
 
 
 class RegisterDialog(QWidget):
+    giris_sayfasi_isteniyor = Signal()
+
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setWindowTitle("Yeni Hesap Oluştur")
@@ -19,8 +24,8 @@ class RegisterDialog(QWidget):
         # Kayıt Formu
         self.kayit_cercevesi = QFrame(self)
         self.kayit_cercevesi.setObjectName(u"kayit_cercevesi")
-        self.kayit_cercevesi.setMinimumSize(QSize(350, 400))
-        self.kayit_cercevesi.setMaximumSize(QSize(400, 450))
+        self.kayit_cercevesi.setMinimumSize(QSize(450, 500))
+        self.kayit_cercevesi.setMaximumSize(QSize(500, 550))
 
         # Frame
         self.kayit_cercevesi.setStyleSheet(u"QFrame {\n"
@@ -49,6 +54,11 @@ class RegisterDialog(QWidget):
 
         self.dikey_yerlesim.addSpacing(20)
 
+        #isim soyisim
+        self.isim_giris = QLineEdit(self.kayit_cercevesi)
+        self.isim_giris.setPlaceholderText("İsim Soyisim")
+        self.dikey_yerlesim.addWidget(self.isim_giris)
+
         # Mail
         self.mail_giris = QLineEdit(self.kayit_cercevesi)
         self.mail_giris.setPlaceholderText("Mail Adresi")
@@ -66,6 +76,34 @@ class RegisterDialog(QWidget):
         self.sifre_tekrar_giris.setEchoMode(QLineEdit.EchoMode.Password)
         self.dikey_yerlesim.addWidget(self.sifre_tekrar_giris)
 
+        #Telefon numarası
+        self.tel_giris = QLineEdit(self.kayit_cercevesi)
+        self.tel_giris.setPlaceholderText("Telefon Numarası")
+        self.dikey_yerlesim.addWidget(self.tel_giris)
+
+        # Admin Checkbox
+        self.check_admin = QCheckBox(self.kayit_cercevesi)
+        self.check_admin.setText("Yönetici (Admin) olarak kayıt ol")
+        self.check_admin.setCursor(Qt.PointingHandCursor)
+        self.check_admin.setStyleSheet("""
+            QCheckBox {
+                background-color: #2E3A59;
+                color: #FFFFFF;
+                font-size: 13px;
+                spacing: 8px;
+            }
+            QCheckBox::indicator {
+                width: 18px;
+                height: 18px;
+                border-radius: 4px;
+                background-color: white;
+            }
+            QCheckBox::indicator:checked {
+                background-color: #4C8BF5;
+            }
+        """)
+        self.dikey_yerlesim.addWidget(self.check_admin)
+
         # Buton
         self.buton_kayit_ol = QPushButton(self.kayit_cercevesi)
         self.buton_kayit_ol.setText("KAYIT OL")
@@ -77,10 +115,33 @@ class RegisterDialog(QWidget):
         self.etiket_giris_link = QLabel(self.kayit_cercevesi)
         self.etiket_giris_link.setText("Zaten hesabın var mı? Giriş Yap")
         self.etiket_giris_link.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.etiket_giris_link.setStyleSheet("color: #A0B9F7; font-size: 11px;")
+        self.etiket_giris_link.setStyleSheet("""
+                            QLabel {
+                                color: #A0B9F7; 
+                                font-size: 11px;
+                            }
+                            QLabel:hover {
+                                color: #4C8BF5;
+                                text-decoration: underline;
+                            }
+                        """)
+        self.etiket_giris_link.setCursor(Qt.PointingHandCursor)
+
+        QTimer.singleShot(0, self.giris_link_ayarla)
+
         self.dikey_yerlesim.addWidget(self.etiket_giris_link)
 
         self.izgara_layout.addWidget(self.kayit_cercevesi, 0, 0, 1, 1)
+
+    def giris_link_ayarla(self):
+        """Giriş linki için tıklama olayını ayarla"""
+        # Widget'ın parent'ını kontrol et
+        if hasattr(self, 'etiket_giris_link'):
+            self.etiket_giris_link.mousePressEvent = lambda event: self.giris_link_tiklandi()
+
+    def giris_link_tiklandi(self):
+        """Giriş linkine tıklandığında sinyal gönder"""
+        self.giris_sayfasi_isteniyor.emit()
 
     def ana_stil_sayfasi_getir(self):
         return u"""
@@ -121,13 +182,3 @@ class RegisterDialog(QWidget):
             padding-bottom: 11px;
         }
         """
-
-
-# # Main
-# if __name__ == "__main__":
-#     app = QApplication(sys.argv)
-#     app.setStyle("Fusion")
-
-#     pencere = RegisterDialog()
-#     pencere.show()
-#     sys.exit(app.exec())

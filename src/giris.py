@@ -18,7 +18,6 @@ class ModernLoginDialog(QWidget):
         self.ana_yatay_layout.setContentsMargins(0, 0, 0, 0)
         self.ana_yatay_layout.setSpacing(0)
 
-        #Giriş Kısmı
         self.sol_cerceve = QFrame(self)
         self.sol_cerceve.setFixedWidth(400)
         self.sol_cerceve.setStyleSheet(self.form_stil_sayfasi_getir())
@@ -33,6 +32,7 @@ class ModernLoginDialog(QWidget):
         self.etiket_baslik = QLabel("Giriş Yap")
         self.etiket_baslik.setFont(self.font_getir(22, True))
         self.etiket_baslik.setStyleSheet("color: #333333;")
+        self.form_dikey_layout.addStretch()
         self.form_dikey_layout.addWidget(self.etiket_baslik)
 
         # Mail Girişi
@@ -74,9 +74,9 @@ class ModernLoginDialog(QWidget):
         self.etiket_bilgi_metni.setWordWrap(True)
         self.etiket_bilgi_metni.setStyleSheet("color: #EFEFEF; font-size: 14px;")
         self.bilgi_dikey_layout.addWidget(self.etiket_bilgi_metni)
-        
+
         self.bilgi_dikey_layout.addSpacing(30)
-        
+
         # Kayıt Ol Butonu
         self.buton_kayit_ol = QPushButton("KAYIT OL")
         self.buton_kayit_ol.setObjectName("KayitButonu")
@@ -88,7 +88,7 @@ class ModernLoginDialog(QWidget):
         self.ana_yatay_layout.addWidget(self.sol_cerceve)
         self.ana_yatay_layout.addWidget(self.sag_cerceve)
 
-    
+
     def font_getir(self, boyut, kalin=False):
         font = QFont("Arial")
         font.setPointSize(boyut)
